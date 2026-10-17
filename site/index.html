@@ -30,15 +30,18 @@ body { margin: 0; background: var(--ground); color: var(--ink); font: 400 17px/1
 
 .sheet { background: var(--sheet); margin: 24px 24px 24px 0; border-radius: var(--radius); box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35); padding: 48px; }
 main, footer { max-width: 46rem; }
+.nav { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 48px; }
+.nav a { font-weight: 600; font-size: 14px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink); text-decoration: none; background: var(--mist); padding: 8px 16px; border-radius: var(--radius); }
+.nav a:hover, .nav a:focus-visible { background: var(--cobalt); color: var(--sheet); }
+.nav a[aria-current="page"] { background: var(--ink); color: var(--sheet); }
 main > * + * { margin-top: 16px; }
 h1 { font-weight: 800; font-size: 48px; line-height: 1.1; margin: 0; }
 h2 { font-weight: 800; font-size: 32px; line-height: 1.2; margin: 48px 0 0; }
 h3 { font-weight: 800; font-size: 22px; line-height: 1.3; margin: 32px 0 0; }
 p { margin: 0; }
 .lede { font-size: 22px; line-height: 1.5; }
-.label, .holds, .crumb { font-weight: 600; font-size: 14px; letter-spacing: 0.08em; text-transform: uppercase; }
+.label, .holds { font-weight: 600; font-size: 14px; letter-spacing: 0.08em; text-transform: uppercase; }
 .holds { color: var(--cobalt); margin-left: 8px; vertical-align: middle; }
-.crumb a { color: var(--cobalt); text-decoration: none; }
 .aside { font-size: 14px; }
 a { color: var(--cobalt); text-underline-offset: 3px; }
 
@@ -71,6 +74,7 @@ footer { margin-top: 48px; font-size: 14px; }
   .field svg { width: 48px; }
   .field .word { font-size: 32px; }
   .sheet { margin: 0 16px 16px; padding: 24px; }
+  .nav { margin-bottom: 32px; }
   h1 { font-size: 32px; }
   h2 { font-size: 22px; margin-top: 32px; }
   .lede { font-size: 17px; }
@@ -93,8 +97,9 @@ footer { margin-top: 48px; font-size: 14px; }
   <rect x="84" y="44" width="32" height="32" rx="3" fill="#1848c0"/>
   <rect x="44" y="84" width="32" height="32" rx="3" fill="#e8a53a"/>
 </svg>
-<span class="word">SYNTAX</span></a><span class="v">Version 0.2.0</span></div>
+<span class="word">SYNTAX</span></a><span class="v">Version 0.2.1</span></div>
 <div class="sheet">
+<nav class="nav"><a href="/" aria-current="page">Home</a><a href="/board-game/">board game</a></nav>
 <main><h1>Kinds of things, broken into parts</h1>
 <p class="lede">A kind of thing can be broken into the same parts every time. SYNTAX writes those parts down: the element types a kind of thing has, and the elements of each type. Once they are written, each thing of that kind can be described as a choice of elements, compared with others, and made by choosing differently.</p>
 <h2>The words</h2>
@@ -107,7 +112,7 @@ footer { margin-top: 48px; font-size: 14px; }
 </dl>
 <h2>Syntaxes</h2>
 <ul class="syntaxes"><li><a href="/board-game/"><span class="name">board game</span><span class="what">8 element types · 86 elements · instance: boardgameBuilder</span></a></li></ul>
-<p class="aside">Version 0.2.0. What changed, and what comes next, is kept with the project's source.</p></main>
+<p class="aside">Version 0.2.1. What changed, and what comes next, is kept with the project's source.</p></main>
 <footer><p>SYNTAX is a project of <a href="https://prayasabhinav.net">Prayas Abhinav</a>. No analytics and no counters. Set in Mukta by Ek Type (<a href="/fonts/OFL.txt">SIL Open Font License</a>).</p></footer>
 </div>
 </div>

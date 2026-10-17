@@ -2,6 +2,10 @@
 
 What changed in SYNTAX, newest first. The version is in `VERSION` and shown on every page; `build.py` stops if `VERSION` and the newest entry here disagree. To add an entry: raise `VERSION` (the middle number for something people can use, the last for a fix), add a section at the top with the same number and the date, and build.
 
+## 0.2.1 — 17 October 2026
+
+- Every page has a navigation bar at the top of the sheet: Home, then each syntax by name, the current one marked. Before this the only ways home were the mark, which did not look like a link, and a small line of text.
+
 ## 0.2.0 — 17 October 2026
 
 - A look and a mark. The mark is three element types, three cells each, with one element chosen from each type: two in cobalt, one in warm light. The site sets the mark alone on the dark ground and everything to read on a cream sheet beside it, stacked on a phone. Brand files are in `brand/`.

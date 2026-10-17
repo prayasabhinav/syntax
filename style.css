@@ -21,15 +21,18 @@ body { margin: 0; background: var(--ground); color: var(--ink); font: 400 17px/1
 
 .sheet { background: var(--sheet); margin: 24px 24px 24px 0; border-radius: var(--radius); box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35); padding: 48px; }
 main, footer { max-width: 46rem; }
+.nav { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 48px; }
+.nav a { font-weight: 600; font-size: 14px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink); text-decoration: none; background: var(--mist); padding: 8px 16px; border-radius: var(--radius); }
+.nav a:hover, .nav a:focus-visible { background: var(--cobalt); color: var(--sheet); }
+.nav a[aria-current="page"] { background: var(--ink); color: var(--sheet); }
 main > * + * { margin-top: 16px; }
 h1 { font-weight: 800; font-size: 48px; line-height: 1.1; margin: 0; }
 h2 { font-weight: 800; font-size: 32px; line-height: 1.2; margin: 48px 0 0; }
 h3 { font-weight: 800; font-size: 22px; line-height: 1.3; margin: 32px 0 0; }
 p { margin: 0; }
 .lede { font-size: 22px; line-height: 1.5; }
-.label, .holds, .crumb { font-weight: 600; font-size: 14px; letter-spacing: 0.08em; text-transform: uppercase; }
+.label, .holds { font-weight: 600; font-size: 14px; letter-spacing: 0.08em; text-transform: uppercase; }
 .holds { color: var(--cobalt); margin-left: 8px; vertical-align: middle; }
-.crumb a { color: var(--cobalt); text-decoration: none; }
 .aside { font-size: 14px; }
 a { color: var(--cobalt); text-underline-offset: 3px; }
 
@@ -62,6 +65,7 @@ footer { margin-top: 48px; font-size: 14px; }
   .field svg { width: 48px; }
   .field .word { font-size: 32px; }
   .sheet { margin: 0 16px 16px; padding: 24px; }
+  .nav { margin-bottom: 32px; }
   h1 { font-size: 32px; }
   h2 { font-size: 22px; margin-top: 32px; }
   .lede { font-size: 17px; }
