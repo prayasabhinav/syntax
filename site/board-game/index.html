@@ -5,35 +5,100 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>The board game syntax · SYNTAX</title>
 <meta name="description" content="SYNTAX breaks kinds of things into element types and elements, so that each thing of that kind can be described, compared and made from the same parts.">
-<style>:root { --ink: #2D3436; --ink3: #6b6560; --paper: #F7F3ED; --line: #e0dbd4; --accent: #3A7249; color-scheme: light; }
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/fonts/mukta-400.woff2" as="font" type="font/woff2" crossorigin>
+<style>/* SYNTAX — frontend-design-prayas-plain: the fixed tokens, Mukta only, served from /fonts with no request to Google.
+   Two zones: the field (the mark alone on the night) and the sheet (everything read). */
+@font-face { font-family: "Mukta"; font-weight: 400; font-display: swap; src: url(/fonts/mukta-400.woff2) format("woff2"); }
+@font-face { font-family: "Mukta"; font-weight: 600; font-display: swap; src: url(/fonts/mukta-600.woff2) format("woff2"); }
+@font-face { font-family: "Mukta"; font-weight: 800; font-display: swap; src: url(/fonts/mukta-800.woff2) format("woff2"); }
+
+:root {
+  --ground: #0a1428; --deep: #12213f; --cobalt: #1848c0; --cobalt-2: #3a6ae0; --mist: #9fb3e0;
+  --sheet: #f8f4ec; --ink: #0a1428; --warm: #e8a53a; --radius: 6px;
+  color-scheme: dark;
+}
 * { box-sizing: border-box; }
-body { margin: 0; background: var(--paper); color: var(--ink); font: 17px/1.6 Georgia, "Source Serif 4", serif; }
-header, main, footer { max-width: 46rem; margin: 0 auto; padding-left: 1.25rem; padding-right: 1.25rem; }
-header { display: flex; align-items: baseline; gap: 0.6rem; padding-top: 1.4rem; padding-bottom: 1rem; border-bottom: 1px solid var(--line); }
-.name { font: 600 1.1rem/1 ui-monospace, "IBM Plex Mono", monospace; letter-spacing: 0.12em; color: var(--ink); text-decoration: none; }
-.v { font: 0.8rem ui-monospace, monospace; color: var(--ink3); }
-main { padding-top: 2rem; padding-bottom: 3rem; }
-h1 { font-size: 2.1rem; line-height: 1.2; margin: 0 0 0.8rem; }
-h2 { font-size: 1.25rem; margin: 2.4rem 0 0.8rem; padding-top: 1.2rem; border-top: 1px solid var(--line); }
-h3 { font-size: 1.05rem; margin: 1.6rem 0 0.2rem; }
-.lede { font-size: 1.15rem; }
-.aside, .crumb { color: var(--ink3); font-size: 0.95rem; }
-.holds { font: 0.72rem ui-monospace, monospace; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink3); margin-left: 0.4rem; }
-a { color: var(--accent); }
-dl { display: grid; grid-template-columns: max-content 1fr; gap: 0.35rem 1.2rem; margin: 0.6rem 0 0; }
+body { margin: 0; background: var(--ground); color: var(--ink); font: 400 17px/1.6 "Mukta", "Noto Sans", "Segoe UI", sans-serif; }
+
+.page { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); min-height: 100vh; }
+.field { position: sticky; top: 0; height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 24px; padding: 48px 24px; color: var(--mist); }
+.field a { color: inherit; text-decoration: none; display: flex; flex-direction: column; align-items: center; gap: 24px; }
+.field svg { width: min(16rem, 60%); height: auto; display: block; }
+.field .word { font-weight: 800; font-size: 48px; line-height: 1; letter-spacing: 0.08em; color: var(--sheet); }
+.field .v { font-weight: 600; font-size: 14px; letter-spacing: 0.08em; text-transform: uppercase; font-variant-numeric: tabular-nums; }
+
+.sheet { background: var(--sheet); margin: 24px 24px 24px 0; border-radius: var(--radius); box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35); padding: 48px; }
+main, footer { max-width: 46rem; }
+main > * + * { margin-top: 16px; }
+h1 { font-weight: 800; font-size: 48px; line-height: 1.1; margin: 0; }
+h2 { font-weight: 800; font-size: 32px; line-height: 1.2; margin: 48px 0 0; }
+h3 { font-weight: 800; font-size: 22px; line-height: 1.3; margin: 32px 0 0; }
+p { margin: 0; }
+.lede { font-size: 22px; line-height: 1.5; }
+.label, .holds, .crumb { font-weight: 600; font-size: 14px; letter-spacing: 0.08em; text-transform: uppercase; }
+.holds { color: var(--cobalt); margin-left: 8px; vertical-align: middle; }
+.crumb a { color: var(--cobalt); text-decoration: none; }
+.aside { font-size: 14px; }
+a { color: var(--cobalt); text-underline-offset: 3px; }
+
+dl { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 8px 24px; margin: 16px 0 0; }
 dt { font-weight: 600; }
 dd { margin: 0; }
-.type dl { font-size: 0.95rem; }
-footer { border-top: 1px solid var(--line); padding-top: 1rem; padding-bottom: 2rem; font-size: 0.85rem; color: var(--ink3); }
-@media (max-width: 560px) { dl { grid-template-columns: 1fr; } dd { margin-bottom: 0.6rem; } }
+
+/* A syntax on the index, and a type on its page: flat blocks of the deep tone, never a coloured rule */
+.syntaxes { list-style: none; padding: 0; display: grid; gap: 16px; }
+.syntaxes a { display: block; background: var(--ink); color: var(--sheet); border-radius: var(--radius); padding: 24px; text-decoration: none; }
+.syntaxes .name { display: block; font-weight: 800; font-size: 32px; line-height: 1.2; }
+.syntaxes .what { display: block; font-size: 14px; color: var(--mist); font-variant-numeric: tabular-nums; }
+.syntaxes a:hover, .syntaxes a:focus-visible { background: var(--cobalt); }
+.syntaxes a:hover .what, .syntaxes a:focus-visible .what { color: var(--sheet); }
+
+.type { margin-top: 32px; }
+.type h3 { margin: 0; }
+.type .aside { margin-top: 8px; font-size: 17px; }
+
+.entities { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; padding: 0; }
+.entities a { display: block; background: var(--ink); color: var(--sheet); border-radius: var(--radius); padding: 4px 12px; font-size: 14px; text-decoration: none; }
+.entities a:hover, .entities a:focus-visible { background: var(--cobalt); }
+
+footer { margin-top: 48px; font-size: 14px; }
+
+@media (max-width: 900px) {
+  .page { grid-template-columns: minmax(0, 1fr); }
+  .field { position: static; height: auto; padding: 32px 16px 24px; }
+  .field a { flex-direction: row; gap: 16px; }
+  .field svg { width: 48px; }
+  .field .word { font-size: 32px; }
+  .sheet { margin: 0 16px 16px; padding: 24px; }
+  h1 { font-size: 32px; }
+  h2 { font-size: 22px; margin-top: 32px; }
+  .lede { font-size: 17px; }
+  dl { grid-template-columns: minmax(0, 1fr); gap: 0; }
+  dd { margin-bottom: 8px; }
+}
 </style>
 </head>
 <body>
-<header><a class="name" href="/">SYNTAX</a><span class="v">v0.1.0</span></header>
-<main><p class="crumb"><a href="/">Syntaxes</a></p>
+<div class="page">
+<div class="field"><a href="/"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" role="img" aria-label="SYNTAX">
+  <title>SYNTAX: three element types, one element chosen from each</title>
+  <rect width="120" height="120" rx="6" fill="#0a1428"/>
+  <g fill="#12213f">
+    <rect x="44" y="4" width="32" height="32" rx="3"/><rect x="84" y="4" width="32" height="32" rx="3"/>
+    <rect x="4" y="44" width="32" height="32" rx="3"/><rect x="44" y="44" width="32" height="32" rx="3"/>
+    <rect x="4" y="84" width="32" height="32" rx="3"/><rect x="84" y="84" width="32" height="32" rx="3"/>
+  </g>
+  <rect x="4" y="4" width="32" height="32" rx="3" fill="#1848c0"/>
+  <rect x="84" y="44" width="32" height="32" rx="3" fill="#1848c0"/>
+  <rect x="44" y="84" width="32" height="32" rx="3" fill="#e8a53a"/>
+</svg>
+<span class="word">SYNTAX</span></a><span class="v">Version 0.2.0</span></div>
+<div class="sheet">
+<main><p class="crumb"><a href="/">All syntaxes</a></p>
 <h1>The board game syntax</h1>
 <p class="lede">It breaks up a board game, or any game played at a table with things at hand into 8 element types and 86 elements. A board game described in it is one choice of elements from each type.</p>
-<h2>Instances</h2><ul><li><a href="https://boardgame.blevn.xyz">boardgameBuilder</a>: a tool for designing a board game from these elements, with a public wiki of what each combination tends to produce (https://boardgame-wiki.blevn.xyz)</li></ul>
+<h2>Instances</h2><ul><li><a href="https://boardgame.blevn.xyz">boardgameBuilder</a>: a tool for designing a board game from these elements, with a public wiki of what each combination tends to produce (<a href="https://boardgame-wiki.blevn.xyz">the wiki</a>)</li></ul>
 <h2>Element types and elements</h2><section class="type"><h3>Core mechanic <span class="holds">holds several</span></h3>
 <p class="aside">The main thing players do on their turn.</p>
 <dl><dt>roll and move</dt><dd>You roll a dice, then move your piece that many spaces along a path. Like Snakes and Ladders or Monopoly.</dd><dt>drafting</dt><dd>You pick one card from your hand, then pass the rest to the next player. Everyone keeps choosing the best one left, like sharing snacks but for cards.</dd><dt>bidding</dt><dd>Players offer money or things to buy something. Whoever offers the most wins it. Like an auction at a market.</dd><dt>push your luck</dt><dd>Keep risking for more points — but if you go too far, you lose what you had. Like saying &quot;one more dive!&quot; when you should have stopped.</dd><dt>area control</dt><dd>Players fight to have the most pieces in different parts of a map. Whoever holds the most spots wins that area.</dd><dt>worker placement</dt><dd>You put your little workers on different jobs on the board. If someone takes a spot, no one else can use it that turn.</dd><dt>pattern building</dt><dd>You match colours or shapes to make patterns — straight lines, mosaics, sets. Like building with bright tiles.</dd><dt>hand management</dt><dd>You hold a hand of cards and decide which to play, when, and which to keep for later. Choosing carefully matters most.</dd><dt>trick-taking</dt><dd>Everyone plays one card. The highest card wins all of them — that&#x27;s a &quot;trick&quot;. Whoever wins leads next.</dd><dt>negotiation</dt><dd>Players talk to each other and make deals. &quot;I&#x27;ll give you wood if you give me wheat.&quot; Trades and promises shape the game.</dd><dt>set collection</dt><dd>You gather groups of matching things — three of one colour, four of one type — to score points. Like collecting stamp sets.</dd><dt>tile placement</dt><dd>You lay tiles down to build a shared map — connecting roads, cities, fields. Like Carcassonne.</dd><dt>call and response</dt><dd>One player says a word or a line, or makes a move, and the next player answers it with one of their own. The game grows like a chain, the way a song can go back and forth between two singers.</dd><dt>playing in silence</dt><dd>Nobody may talk. You can only show what you mean by what you play and when you play it. In The Mind, players put numbered cards down in order without saying a word.</dd><dt>change the rules</dt><dd>On your turn you can change a rule instead of only making a move, so the game you finish is not the game you started. In Nomic, changing the rules is the whole game.</dd><dt>role-play</dt><dd>You speak and act as a character instead of as yourself, and decide what that character would do. Tabletop role-playing games and live-action role-play (LARP) are built on this.</dd><dt>dexterity</dt><dd>Your hands decide what happens: flicking, stacking, balancing or throwing. In Jenga you pull blocks out of a tower without toppling it; in carrom you flick the striker.</dd><dt>drawing the map</dt><dd>Players draw or build the map as they play, so the world is made by the people in it. In The Quiet Year, a community&#x27;s map grows week by week on one sheet of paper.</dd></dl></section><section class="type"><h3>Victory condition <span class="holds">holds one</span></h3>
@@ -51,8 +116,10 @@ footer { border-top: 1px solid var(--line); padding-top: 1rem; padding-bottom: 2
 <dl><dt>take turns</dt><dd>One player acts at a time, going round the table. Everyone else watches, waits and plans for their own turn. Chess and most board games work this way.</dd><dt>everyone at once</dt><dd>Everyone chooses in secret at the same moment, then all reveal together. Nobody waits for anybody. In 7 Wonders, every player picks a card at once and passes the rest.</dd><dt>no turns</dt><dd>There are no turns at all. Anyone may act at any moment, and whoever is quickest gets there first. In Set, everyone hunts the same cards at once.</dd><dt>timed turns</dt><dd>Turns still come in order, but each one has a clock: a sand timer, a phone, a count to ten. When time runs out, the move is lost or made for you. In 3 Quarters every move has 20 seconds.</dd><dt>real-time span</dt><dd>The game runs on real days or weeks, not turns. You might make one move each morning, so waiting is part of playing.</dd><dt>sedated</dt><dd>The game slows players down on purpose: a pause before each move, a breath, a long wait built into the rules. The slowness is part of the play, not a delay.</dd><dt>accelerated</dt><dd>The game speeds up as it goes: timers shrink, more happens each round, and the end comes in a rush. In Tetris the pieces fall faster at every level.</dd></dl></section><section class="type"><h3>Simulation <span class="holds">holds several</span></h3>
 <p class="aside">The real problem the game models, and how players learn from it.</p>
 <dl><dt>model a system</dt><dd>The board works like a real system, such as how water moves between a village&#x27;s wells and fields, so a move has the effect it would have in real life.</dd><dt>stakeholder roles</dt><dd>Each player plays a real group with its own needs, such as farmers, a village council or a shopkeeper. You see the problem from where they stand.</dd><dt>shared resource</dt><dd>Everyone draws from one limited thing, such as the water under a village. If players take too much, it runs out for everyone. Villages in Andhra Pradesh have played games like this about their own groundwater.</dd><dt>delayed effects</dt><dd>What you do now shows its effect only a few rounds later, the way a choice made this year shows up years later in real life.</dd><dt>try a rule</dt><dd>Players agree a new rule for everyone, then play on to see what it changes. It is a safe way to test a rule before trying it for real.</dd><dt>debrief</dt><dd>After the game, everyone talks it through: What happened? Why? How is it like the real problem? What would happen if we changed something?</dd><dt>irreversible change</dt><dd>What you do changes the game permanently. Cards get torn up, stickers go on the board, and the next game starts where this one ended. Nothing can be undone.</dd><dt>rules make an argument</dt><dd>The rules themselves make a point about the world. If a game about a city rewards only building roads, the game is saying something about cities. The writer Ian Bogost calls this procedural rhetoric.</dd><dt>stakes outside the game</dt><dd>What happens in the game carries into real life: real money, a real promise, a friendship tested. The line around a game is thinner than it looks.</dd><dt>points stand for values</dt><dd>The game turns something that matters, like health or kindness, into points, and players start chasing the points instead. It shows what happens when a number replaces what it was meant to measure.</dd><dt>rehearse a future</dt><dd>Players practise a way of living or working that does not exist yet, such as a village that shares everything, to see how it might feel before anyone tries it for real.</dd></dl></section>
-<h2>Board games described in it</h2><p><a href="https://boardgame.blevn.xyz/#games/pig">Pig</a>, <a href="https://boardgame.blevn.xyz/#games/mini-hanabi">Three-card Hanabi</a>, <a href="https://boardgame.blevn.xyz/#games/blocking-grid">The blocking grid</a>, <a href="https://boardgame.blevn.xyz/#games/werewolf-5">Werewolf-5</a>, <a href="https://boardgame.blevn.xyz/#games/paper-auction">Paper auction</a>, <a href="https://boardgame.blevn.xyz/#games/pick-and-pass">Pick-and-pass</a>, <a href="https://boardgame.blevn.xyz/#games/last-card-out">Last-card-out</a>, <a href="https://boardgame.blevn.xyz/#games/nim">Nim</a>, <a href="https://boardgame.blevn.xyz/#games/raja-mantri-chor-sipahi">Raja Mantri Chor Sipahi</a>, <a href="https://boardgame.blevn.xyz/#games/gulaam-chor">Gulaam Chor</a>, <a href="https://boardgame.blevn.xyz/#games/satte-pe-satta">Satte pe Satta</a>, <a href="https://boardgame.blevn.xyz/#games/dots-and-boxes">Dots and Boxes</a>, <a href="https://boardgame.blevn.xyz/#games/paper-battleship">Battleship on paper</a>, <a href="https://boardgame.blevn.xyz/#games/bulls-and-cows">Bulls and Cows</a>, <a href="https://boardgame.blevn.xyz/#games/cheat">Cheat</a>, <a href="https://boardgame.blevn.xyz/#games/spoons">Spoons</a>, <a href="https://boardgame.blevn.xyz/#games/cram">Cram</a>, <a href="https://boardgame.blevn.xyz/#games/sos">SOS</a>, <a href="https://boardgame.blevn.xyz/#games/three-mens-morris">Three Men&#x27;s Morris</a>, <a href="https://boardgame.blevn.xyz/#games/set">Set</a>, <a href="https://boardgame.blevn.xyz/#games/3-quarters">3 Quarters</a>, <a href="https://boardgame.blevn.xyz/#games/all-or-nothing">All or Nothing</a>, <a href="https://boardgame.blevn.xyz/#games/eleusis">Eleusis</a>, <a href="https://boardgame.blevn.xyz/#games/mao">Mao</a>, <a href="https://boardgame.blevn.xyz/#games/nomic">Nomic</a>, <a href="https://boardgame.blevn.xyz/#games/the-mind">The Mind</a>, <a href="https://boardgame.blevn.xyz/#games/exquisite-corpse">Exquisite Corpse</a>, <a href="https://boardgame.blevn.xyz/#games/consequences">Consequences</a>, <a href="https://boardgame.blevn.xyz/#games/racetrack">Racetrack</a>, <a href="https://boardgame.blevn.xyz/#games/sprouts">Sprouts</a>, <a href="https://boardgame.blevn.xyz/#games/hex">Hex</a>, <a href="https://boardgame.blevn.xyz/#games/sim">Sim</a>, <a href="https://boardgame.blevn.xyz/#games/chomp">Chomp</a>, <a href="https://boardgame.blevn.xyz/#games/kayles">Kayles</a>, <a href="https://boardgame.blevn.xyz/#games/quantum-tic-tac-toe">Quantum tic-tac-toe</a>, <a href="https://boardgame.blevn.xyz/#games/ultimate-tic-tac-toe">Ultimate tic-tac-toe</a>, <a href="https://boardgame.blevn.xyz/#games/paper-soccer">Paper soccer</a>, <a href="https://boardgame.blevn.xyz/#games/mu-torere">Mū Tōrere</a>, <a href="https://boardgame.blevn.xyz/#games/aadu-puli-attam">Aadu Puli Attam</a>, <a href="https://boardgame.blevn.xyz/#games/moksha-patam">Moksha Patam</a>, <a href="https://boardgame.blevn.xyz/#games/royal-game-of-ur">The Royal Game of Ur</a>, <a href="https://boardgame.blevn.xyz/#games/senet">Senet</a>, <a href="https://boardgame.blevn.xyz/#games/kemps">Kemps</a>, <a href="https://boardgame.blevn.xyz/#games/liars-dice">Liar&#x27;s Dice</a>, <a href="https://boardgame.blevn.xyz/#games/cuttle">Cuttle</a>, <a href="https://boardgame.blevn.xyz/#games/mendikot">Mendikot</a>, <a href="https://boardgame.blevn.xyz/#games/penneys-game">Penney&#x27;s game</a></p>
+<h2>Board games described in it</h2><ul class="entities"><li><a href="https://boardgame.blevn.xyz/#games/pig">Pig</a></li><li><a href="https://boardgame.blevn.xyz/#games/mini-hanabi">Three-card Hanabi</a></li><li><a href="https://boardgame.blevn.xyz/#games/blocking-grid">The blocking grid</a></li><li><a href="https://boardgame.blevn.xyz/#games/werewolf-5">Werewolf-5</a></li><li><a href="https://boardgame.blevn.xyz/#games/paper-auction">Paper auction</a></li><li><a href="https://boardgame.blevn.xyz/#games/pick-and-pass">Pick-and-pass</a></li><li><a href="https://boardgame.blevn.xyz/#games/last-card-out">Last-card-out</a></li><li><a href="https://boardgame.blevn.xyz/#games/nim">Nim</a></li><li><a href="https://boardgame.blevn.xyz/#games/raja-mantri-chor-sipahi">Raja Mantri Chor Sipahi</a></li><li><a href="https://boardgame.blevn.xyz/#games/gulaam-chor">Gulaam Chor</a></li><li><a href="https://boardgame.blevn.xyz/#games/satte-pe-satta">Satte pe Satta</a></li><li><a href="https://boardgame.blevn.xyz/#games/dots-and-boxes">Dots and Boxes</a></li><li><a href="https://boardgame.blevn.xyz/#games/paper-battleship">Battleship on paper</a></li><li><a href="https://boardgame.blevn.xyz/#games/bulls-and-cows">Bulls and Cows</a></li><li><a href="https://boardgame.blevn.xyz/#games/cheat">Cheat</a></li><li><a href="https://boardgame.blevn.xyz/#games/spoons">Spoons</a></li><li><a href="https://boardgame.blevn.xyz/#games/cram">Cram</a></li><li><a href="https://boardgame.blevn.xyz/#games/sos">SOS</a></li><li><a href="https://boardgame.blevn.xyz/#games/three-mens-morris">Three Men&#x27;s Morris</a></li><li><a href="https://boardgame.blevn.xyz/#games/set">Set</a></li><li><a href="https://boardgame.blevn.xyz/#games/3-quarters">3 Quarters</a></li><li><a href="https://boardgame.blevn.xyz/#games/all-or-nothing">All or Nothing</a></li><li><a href="https://boardgame.blevn.xyz/#games/eleusis">Eleusis</a></li><li><a href="https://boardgame.blevn.xyz/#games/mao">Mao</a></li><li><a href="https://boardgame.blevn.xyz/#games/nomic">Nomic</a></li><li><a href="https://boardgame.blevn.xyz/#games/the-mind">The Mind</a></li><li><a href="https://boardgame.blevn.xyz/#games/exquisite-corpse">Exquisite Corpse</a></li><li><a href="https://boardgame.blevn.xyz/#games/consequences">Consequences</a></li><li><a href="https://boardgame.blevn.xyz/#games/racetrack">Racetrack</a></li><li><a href="https://boardgame.blevn.xyz/#games/sprouts">Sprouts</a></li><li><a href="https://boardgame.blevn.xyz/#games/hex">Hex</a></li><li><a href="https://boardgame.blevn.xyz/#games/sim">Sim</a></li><li><a href="https://boardgame.blevn.xyz/#games/chomp">Chomp</a></li><li><a href="https://boardgame.blevn.xyz/#games/kayles">Kayles</a></li><li><a href="https://boardgame.blevn.xyz/#games/quantum-tic-tac-toe">Quantum tic-tac-toe</a></li><li><a href="https://boardgame.blevn.xyz/#games/ultimate-tic-tac-toe">Ultimate tic-tac-toe</a></li><li><a href="https://boardgame.blevn.xyz/#games/paper-soccer">Paper soccer</a></li><li><a href="https://boardgame.blevn.xyz/#games/mu-torere">Mū Tōrere</a></li><li><a href="https://boardgame.blevn.xyz/#games/aadu-puli-attam">Aadu Puli Attam</a></li><li><a href="https://boardgame.blevn.xyz/#games/moksha-patam">Moksha Patam</a></li><li><a href="https://boardgame.blevn.xyz/#games/royal-game-of-ur">The Royal Game of Ur</a></li><li><a href="https://boardgame.blevn.xyz/#games/senet">Senet</a></li><li><a href="https://boardgame.blevn.xyz/#games/kemps">Kemps</a></li><li><a href="https://boardgame.blevn.xyz/#games/liars-dice">Liar&#x27;s Dice</a></li><li><a href="https://boardgame.blevn.xyz/#games/cuttle">Cuttle</a></li><li><a href="https://boardgame.blevn.xyz/#games/mendikot">Mendikot</a></li><li><a href="https://boardgame.blevn.xyz/#games/penneys-game">Penney&#x27;s game</a></li></ul>
 <p class="aside">The syntax as data: <a href="/board-game.json">board-game.json</a>. It is read from boardgameBuilder each time this site is built, so the two never differ.</p></main>
-<footer><p>SYNTAX is a project of <a href="https://prayasabhinav.net">Prayas Abhinav</a>. No analytics and no counters.</p></footer>
+<footer><p>SYNTAX is a project of <a href="https://prayasabhinav.net">Prayas Abhinav</a>. No analytics and no counters. Set in Mukta by Ek Type (<a href="/fonts/OFL.txt">SIL Open Font License</a>).</p></footer>
+</div>
+</div>
 </body>
 </html>

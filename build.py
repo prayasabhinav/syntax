@@ -8,6 +8,7 @@ CHANGELOG.md disagree, or if a syntax is not named by a primary name.
 import html
 import json
 import re
+import shutil
 import sys
 from pathlib import Path
 
@@ -39,7 +40,8 @@ SYNTAXES = [{
         "elements": [{"name": b["display"], "description": meta_for(b["id"])["description"]} for b in d["blocks"]],
     } for d in palette.DIMENSIONS],
     "instances": [{"name": "boardgameBuilder", "url": TOOL_URL,
-                   "what": f"a tool for designing a board game from these elements, with a public wiki of what each combination tends to produce ({WIKI_URL})"}],
+                   "what": "a tool for designing a board game from these elements, with a public wiki of what each combination tends to produce",
+                   "wiki": WIKI_URL}],
     "described_entities": [{"name": g["title"].split(" — ")[0], "url": f"{TOOL_URL}/#games/{g['id']}"} for g in games],
 }]
 
@@ -51,6 +53,9 @@ e = html.escape
 STYLE = (HERE / "style.css").read_text()
 
 
+MARK = (HERE / "brand" / "syntax-mark.svg").read_text()
+
+
 def page(title, body):
     return f"""<!doctype html>
 <html lang="en-GB">
@@ -59,12 +64,18 @@ def page(title, body):
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{e(title)}</title>
 <meta name="description" content="SYNTAX breaks kinds of things into element types and elements, so that each thing of that kind can be described, compared and made from the same parts.">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/fonts/mukta-400.woff2" as="font" type="font/woff2" crossorigin>
 <style>{STYLE}</style>
 </head>
 <body>
-<header><a class="name" href="/">SYNTAX</a><span class="v">v{VERSION}</span></header>
+<div class="page">
+<div class="field"><a href="/">{MARK}<span class="word">SYNTAX</span></a><span class="v">Version {VERSION}</span></div>
+<div class="sheet">
 <main>{body}</main>
-<footer><p>SYNTAX is a project of <a href="https://prayasabhinav.net">Prayas Abhinav</a>. No analytics and no counters.</p></footer>
+<footer><p>SYNTAX is a project of <a href="https://prayasabhinav.net">Prayas Abhinav</a>. No analytics and no counters. Set in Mukta by Ek Type (<a href="/fonts/OFL.txt">SIL Open Font License</a>).</p></footer>
+</div>
+</div>
 </body>
 </html>
 """
@@ -76,15 +87,15 @@ for s in SYNTAXES:
 <p class="aside">{e(t['description'])}</p>
 <dl>{''.join(f'<dt>{e(x["name"])}</dt><dd>{e(x["description"])}</dd>' for x in t['elements'])}</dl></section>"""
         for t in s["element_types"])
-    inst = "".join(f'<li><a href="{e(i["url"])}">{e(i["name"])}</a>: {e(i["what"])}</li>' for i in s["instances"])
-    ents = ", ".join(f'<a href="{e(x["url"])}">{e(x["name"])}</a>' for x in s["described_entities"])
+    inst = "".join(f'<li><a href="{e(i["url"])}">{e(i["name"])}</a>: {e(i["what"])} (<a href="{e(i["wiki"])}">the wiki</a>)</li>' for i in s["instances"])
+    ents = "".join(f'<li><a href="{e(x["url"])}">{e(x["name"])}</a></li>' for x in s["described_entities"])
     n_el = sum(len(t["elements"]) for t in s["element_types"])
-    body = f"""<p class="crumb"><a href="/">Syntaxes</a></p>
+    body = f"""<p class="crumb"><a href="/">All syntaxes</a></p>
 <h1>The {e(s['name'])} syntax</h1>
 <p class="lede">It breaks up {e(s['breaks_up'])} into {len(s['element_types'])} element types and {n_el} elements. A board game described in it is one choice of elements from each type.</p>
 <h2>Instances</h2><ul>{inst}</ul>
 <h2>Element types and elements</h2>{types}
-<h2>Board games described in it</h2><p>{ents}</p>
+<h2>Board games described in it</h2><ul class="entities">{ents}</ul>
 <p class="aside">The syntax as data: <a href="/{s['slug']}.json">{s['slug']}.json</a>. It is read from boardgameBuilder each time this site is built, so the two never differ.</p>"""
     out = HERE / "site" / s["slug"]
     out.mkdir(parents=True, exist_ok=True)
@@ -92,10 +103,11 @@ for s in SYNTAXES:
     (HERE / "site" / f"{s['slug']}.json").write_text(json.dumps(s, indent=1, ensure_ascii=False) + "\n")
 
 rows = "".join(
-    f'<li><a href="/{s["slug"]}/">{e(s["name"])}</a>: {len(s["element_types"])} element types, '
-    f'{sum(len(t["elements"]) for t in s["element_types"])} elements; instance {", ".join(e(i["name"]) for i in s["instances"])}</li>'
+    f'<li><a href="/{s["slug"]}/"><span class="name">{e(s["name"])}</span>'
+    f'<span class="what">{len(s["element_types"])} element types · {sum(len(t["elements"]) for t in s["element_types"])} elements · '
+    f'instance: {", ".join(e(i["name"]) for i in s["instances"])}</span></a></li>'
     for s in SYNTAXES)
-index = f"""<h1>SYNTAX</h1>
+index = f"""<h1>Kinds of things, broken into parts</h1>
 <p class="lede">A kind of thing can be broken into the same parts every time. SYNTAX writes those parts down: the element types a kind of thing has, and the elements of each type. Once they are written, each thing of that kind can be described as a choice of elements, compared with others, and made by choosing differently.</p>
 <h2>The words</h2>
 <dl class="words">
@@ -106,7 +118,9 @@ index = f"""<h1>SYNTAX</h1>
 <dt>instance</dt><dd>a tool built on a syntax. boardgameBuilder is an instance of the board game syntax.</dd>
 </dl>
 <h2>Syntaxes</h2>
-<ul>{rows}</ul>
+<ul class="syntaxes">{rows}</ul>
 <p class="aside">Version {VERSION}. What changed, and what comes next, is kept with the project's source.</p>"""
 (HERE / "site" / "index.html").write_text(page("SYNTAX", index))
+(HERE / "site" / "favicon.svg").write_text(MARK)
+shutil.copytree(HERE / "fonts", HERE / "site" / "fonts", dirs_exist_ok=True)
 print(f"built SYNTAX {VERSION}: {len(SYNTAXES)} syntax(es)")
