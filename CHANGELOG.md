@@ -2,6 +2,10 @@
 
 What changed in SYNTAX, newest first. The version is in `VERSION` and shown on every page; `build.py` stops if `VERSION` and the newest entry here disagree. To add an entry: raise `VERSION` (the middle number for something people can use, the last for a fix), add a section at the top with the same number and the date, and build.
 
+## 0.6.0 — 17 October 2026
+
+- The fifth syntax, **framework**: a framework, broken into stance, pool, rooms, access and count, each read from the Museum of Vestigial Desire's own texts. It is read from the Museum's `framework-syntax.json`, and the Museum is its instance. What it leaves out says what its texts do not settle: voice, a pool other than a uniform one, and whether rooms belong to every framework.
+
 ## 0.5.1 — 17 October 2026
 
 - The personhood syntax says in so many words that things are excluded and animals are partially excluded: an animal holds intent, and is excluded from language, judgement and residue.

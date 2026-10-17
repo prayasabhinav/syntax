@@ -20,6 +20,7 @@ Live at https://syntax.prayasabhinav.net.
 | record | `../zariia/website/record-syntax.json` | Zariia |
 | personhood | `../splitdomaincognition/personhood-syntax.json` | Split-Domain Cognition; Koher, its child |
 | life | `../splitdomaincognition/life-syntax.json` | Split-Domain Cognition's animal-rights variant |
+| framework | `../museumofvestigialdesire.net/framework-syntax.json` | Museum of Vestigial Desire |
 
 ## Building and deploying
 

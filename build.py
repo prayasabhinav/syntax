@@ -1,8 +1,9 @@
 """Build SYNTAX's site and its syntax files. Run from this folder: python3 build.py
 
 Each syntax is read from the instance that holds it, never copied by hand: the board game syntax comes from
-boardgameBuilder's palette.py and block_meta.py, the record syntax from Zariia's website/record-syntax.json, the personhood syntax from
-Split-Domain Cognition's personhood-syntax.json. It is written to site/<name>.json (the syntax as data)
+boardgameBuilder's palette.py and block_meta.py, the record syntax from Zariia's website/record-syntax.json, the personhood and life syntaxes from
+Split-Domain Cognition's personhood-syntax.json and life-syntax.json, the framework syntax from the Museum of
+Vestigial Desire's framework-syntax.json. It is written to site/<name>.json (the syntax as data)
 and site/<name>/index.html (the syntax as a page). The build stops if VERSION and the newest entry in
 CHANGELOG.md disagree, or if a syntax is not named by a primary name.
 """
@@ -78,6 +79,22 @@ SYNTAXES.append({
          "links": []},
         {"name": "Koher", "url": "https://koher.app",
          "what": "Split-Domain Cognition's child: free, open-source tools built on the principle",
+         "links": []},
+    ],
+    "described_entities": [],
+})
+
+framework = json.loads((HERE.parent / "museumofvestigialdesire.net" / "framework-syntax.json").read_text())
+SYNTAXES.append({
+    "name": framework["name"],
+    "read_from": "the Museum of Vestigial Desire",
+    "slug": framework["name"],
+    "breaks_up": framework["breaks_up"],
+    "left_out": framework["left_out"],
+    "element_types": framework["element_types"],
+    "instances": [
+        {"name": "Museum of Vestigial Desire", "url": "https://museumofvestigialdesire.net",
+         "what": "the framework the syntax is read from: a museum, begun in 2012, of desires that have outlived their objects",
          "links": []},
     ],
     "described_entities": [],

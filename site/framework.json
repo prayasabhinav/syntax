@@ -1,0 +1,105 @@
+{
+ "name": "framework",
+ "read_from": "the Museum of Vestigial Desire",
+ "slug": "framework",
+ "breaks_up": "a framework, by how its name binds what follows and how what it collects is kept and reached",
+ "left_out": "Voice: the Museum speaks as itself and through its columnists, but no text of it sets two voices against each other, so voice is not yet a type. A pool other than a uniform one: the Museum's texts name only the uniform side. Whether rooms belong to every framework or only to the Museum stays untested until a second framework is described here.",
+ "element_types": [
+  {
+   "name": "stance",
+   "holds": "one",
+   "description": "How the framework's name binds what follows.",
+   "elements": [
+    {
+     "name": "pronouncement",
+     "description": "the name means what is pronounced: a specification that binds whatever follows"
+    },
+    {
+     "name": "description",
+     "description": "the name means what was found by careful observation and analysis"
+    }
+   ]
+  },
+  {
+   "name": "pool",
+   "holds": "one",
+   "description": "What the framework collects.",
+   "elements": [
+    {
+     "name": "uniform",
+     "description": "a fixed content pool with one type of content, which becomes a body with a presence of its own"
+    }
+   ]
+  },
+  {
+   "name": "rooms",
+   "holds": "several",
+   "description": "The containers the pool is kept in, each with its own condition for entry.",
+   "elements": [
+    {
+     "name": "sanctuary",
+     "description": "ideas allowed to persist without evidence of their having any value"
+    },
+    {
+     "name": "shrine",
+     "description": "desires that were cultural forces and are not any more"
+    },
+    {
+     "name": "functions",
+     "description": "where function breaks"
+    },
+    {
+     "name": "books",
+     "description": "annotations on books, which are social beings"
+    },
+    {
+     "name": "analysis",
+     "description": "later, quieter essays"
+    },
+    {
+     "name": "offices",
+     "description": "a stage for the public performance of an institution"
+    }
+   ]
+  },
+  {
+   "name": "access",
+   "holds": "one",
+   "description": "How widely the framework is open, against how intensely it is held: the more the access, the less the intensity.",
+   "elements": [
+    {
+     "name": "wide",
+     "description": "open to anyone, held less intensely"
+    },
+    {
+     "name": "narrow",
+     "description": "open to few, held more intensely"
+    }
+   ]
+  },
+  {
+   "name": "count",
+   "holds": "one",
+   "description": "Whether the framework knows how many it reaches.",
+   "elements": [
+    {
+     "name": "not known",
+     "description": "no number is kept, so it can be anything, zero or infinite"
+    },
+    {
+     "name": "known",
+     "description": "a number is kept"
+    }
+   ]
+  }
+ ],
+ "instances": [
+  {
+   "name": "Museum of Vestigial Desire",
+   "url": "https://museumofvestigialdesire.net",
+   "what": "the framework the syntax is read from: a museum, begun in 2012, of desires that have outlived their objects",
+   "links": []
+  }
+ ],
+ "described_entities": []
+}
