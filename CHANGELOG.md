@@ -2,6 +2,12 @@
 
 What changed in SYNTAX, newest first. The version is in `VERSION` and shown on every page; `build.py` stops if `VERSION` and the newest entry here disagree. To add an entry: raise `VERSION` (the middle number for something people can use, the last for a fix), add a section at the top with the same number and the date, and build.
 
+## 0.6.2 — 17 October 2026
+
+- The README is the documentation: what SYNTAX is, the words, the rules every syntax keeps, the syntax file field by field with an example, how the family mark is drawn, every address the site serves, how to add a syntax, and how to build and deploy. Its table of syntaxes is written by the build, from the same list the site is.
+- Badges at the top of the README, drawn by the build in SYNTAX's colours so the version and the number of syntaxes cannot fall behind: version, syntaxes, licence, site, names, left out, AI, build, analytics. None counts stars, downloads or visitors.
+- The life syntax's page shows its note, which says an animal holds every part of it in full. The build had been reading past it.
+
 ## 0.6.1 — 17 October 2026
 
 - Link previews: every page carries Open Graph and Twitter tags, with an image in the site's look, the mark on the dark field and the name on the cream sheet. The home page and the list of syntaxes use SYNTAX's own; each syntax's page uses one with its family mark. `og.py` draws them into `og/`, and the build refuses a syntax that has none.

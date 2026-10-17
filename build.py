@@ -107,6 +107,7 @@ SYNTAXES.append({
     "slug": life["name"],
     "breaks_up": life["breaks_up"],
     "left_out": life["left_out"],
+    "note": life["note"],
     "element_types": life["element_types"],
     "instances": [
         {"name": "Split-Domain Cognition's animal-rights variant", "url": "https://splitdomaincognition.org/variants/animal-rights-and-veganism/v1/",
@@ -205,6 +206,7 @@ for s in SYNTAXES:
     n_el = sum(len(t["elements"]) for t in s["element_types"])
     body = f"""<h1>The {e(s['name'])} syntax</h1>
 <p class="lede">It breaks up {e(s['breaks_up'])}. It has {len(s['element_types'])} element types and {n_el} elements, and a {e(s['name'])} described in it is one choice of elements from each type.</p>
+{f'<p>{e(s["note"])}</p>' if s.get("note") else ""}
 <h2>Instances</h2><ul>{inst}</ul>
 <h2>Element types and elements</h2>{types}
 <h2>Left out</h2><p>{e(s["left_out"])}</p>
@@ -255,4 +257,45 @@ if __name__ == "__main__":
     if missing:
         sys.exit(f"no preview image for {', '.join(missing)}: run python3 og.py")
     shutil.copytree(HERE / "og", HERE / "site" / "og", dirs_exist_ok=True)
+
+
+def badge(label, value, fill):
+    """A badge in SYNTAX's colours, drawn here so the version and the count can never fall behind."""
+    lw, vw = round(len(label) * 7 + 12), round(len(value) * 7 + 12)
+    ink = "#0a1428" if fill == "#e8a53a" else "#f8f4ec"
+    return (f'<svg xmlns="http://www.w3.org/2000/svg" width="{lw + vw}" height="20" role="img" aria-label="{e(label)}: {e(value)}">'
+            f'<title>{e(label)}: {e(value)}</title>'
+            f'<rect width="{lw + vw}" height="20" rx="3" fill="{fill}"/><rect width="{lw}" height="20" rx="3" fill="#0a1428"/>'
+            f'<rect x="{lw - 3}" width="3" height="20" fill="#0a1428"/>'
+            f'<g font-family="Verdana,DejaVu Sans,sans-serif" font-size="11" text-anchor="middle">'
+            f'<text x="{lw / 2}" y="14" fill="#f8f4ec">{e(label)}</text><text x="{lw + vw / 2}" y="14" fill="{ink}">{e(value)}</text></g></svg>\n')
+
+
+BADGES = {
+    "version": ("version", VERSION, "#1848c0"),
+    "syntaxes": ("syntaxes", str(len(SYNTAXES)), "#1848c0"),
+    "licence": ("licence", "CC BY 4.0", "#1848c0"),
+    "site": ("site", "syntax.prayasabhinav.net", "#1848c0"),
+    "names": ("names", "primary only", "#3a6ae0"),
+    "left-out": ("left out", "always stated", "#3a6ae0"),
+    "ai": ("AI", "a thing, never a person", "#3a6ae0"),
+    "build": ("build", "Python, nothing to install", "#3a6ae0"),
+    "analytics": ("analytics", "none, by choice", "#e8a53a"),
+}
+(HERE / "badges").mkdir(exist_ok=True)
+for slug, args in BADGES.items():
+    (HERE / "badges" / f"{slug}.svg").write_text(badge(*args))
+
+# The README's table of syntaxes is written from the same list the site is, between two markers.
+table = "\n".join(
+    f'| <img src="site/{s["slug"]}/mark.svg" height="40" alt="the {e(s["name"])} mark"> | [**{s["name"]}**]({SITE}/{s["slug"]}/) | '
+    f'{len(s["element_types"])} | {sum(len(t["elements"]) for t in s["element_types"])} | {s["read_from"]} | '
+    f'{"; ".join(i["name"] for i in s["instances"])} | [`{s["slug"]}.json`]({SITE}/{s["slug"]}.json) |'
+    for s in SYNTAXES)
+readme = HERE / "README.md"
+r = readme.read_text()
+a, b = r.index("<!-- syntaxes:start -->"), r.index("<!-- syntaxes:end -->")
+readme.write_text(r[:a] + "<!-- syntaxes:start -->\n| Mark | Syntax | Element types | Elements | Read from | Instances | As data |\n|---|---|---|---|---|---|---|\n"
+                  + table + "\n" + r[b:])
+
 print(f"built SYNTAX {VERSION}: {len(SYNTAXES)} syntax(es)")
