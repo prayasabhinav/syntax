@@ -2,6 +2,10 @@
 
 What changed in SYNTAX, newest first. The version is in `VERSION` and shown on every page; `build.py` stops if `VERSION` and the newest entry here disagree. To add an entry: raise `VERSION` (the middle number for something people can use, the last for a fix), add a section at the top with the same number and the date, and build.
 
+## 0.5.1 — 17 October 2026
+
+- The personhood syntax says in so many words that things are excluded and animals are partially excluded: an animal holds intent, and is excluded from language, judgement and residue.
+
 ## 0.5.0 — 17 October 2026
 
 - The fourth syntax, **life**: an animal's life, broken into place, food, action, body and signal, each either the animal's own or taken by use. An animal holds every part of it. It is read from Split-Domain Cognition's `life-syntax.json`, and its instance is the animal-rights variant.
