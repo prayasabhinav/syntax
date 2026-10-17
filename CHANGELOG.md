@@ -7,6 +7,7 @@ What changed in SYNTAX, newest first. The version is in `VERSION` and shown on e
 - The second syntax, **record**: a record with two channels in one file, broken into open channel, sealed channel and class. It is read from Zariia's `website/record-syntax.json`, so the two never differ. Zariia is its instance.
 - SYNTAX is licensed CC BY 4.0: the full text is in `LICENSE`, and every page's footer says so.
 - Every page's footer links the source on GitHub, and the home page links the changelog and the roadmap there.
+- Every syntax has a mark in the SYNTAX family, made by the build from the syntax itself: one row per element type, three cells a row, one lit in each row at a place set by the syntax's name, and the last row's lit cell warm. A syntax's page shows its mark and name in the dark column, the list of syntaxes shows each one's mark, and each is served as `/<syntax>/mark.svg`.
 - A syntax's page opens with two sentences instead of one, so a description containing a colon no longer runs into the counts.
 
 ## 0.2.3 — 17 October 2026

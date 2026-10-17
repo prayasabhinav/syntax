@@ -15,7 +15,8 @@ body { margin: 0; background: var(--ground); color: var(--ink); font: 400 17px/1
 .page { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); min-height: 100vh; }
 .field { position: sticky; top: 0; height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 24px; padding: 48px 24px; color: var(--mist); }
 .field a { color: inherit; text-decoration: none; display: flex; flex-direction: column; align-items: center; gap: 24px; }
-.field svg { width: min(16rem, 60%); height: auto; display: block; }
+.field svg { width: min(16rem, 60%); max-height: 56vh; height: auto; display: block; }
+.field .v a { display: inline; color: inherit; }
 .field .word { font-weight: 800; font-size: 48px; line-height: 1; letter-spacing: 0.08em; color: var(--sheet); }
 .field .v { font-weight: 600; font-size: 14px; letter-spacing: 0.08em; text-transform: uppercase; font-variant-numeric: tabular-nums; }
 
@@ -42,7 +43,8 @@ dd { margin: 0; }
 
 /* A syntax on the index, and a type on its page: flat blocks of the deep tone, never a coloured rule */
 .syntaxes { list-style: none; padding: 0; display: grid; gap: 16px; }
-.syntaxes a { display: block; background: var(--ink); color: var(--sheet); border-radius: var(--radius); padding: 24px; text-decoration: none; }
+.syntaxes a { display: grid; grid-template-columns: auto minmax(0, 1fr); column-gap: 24px; align-items: center; background: var(--ink); color: var(--sheet); border-radius: var(--radius); padding: 24px; text-decoration: none; }
+.syntaxes svg { grid-row: span 2; width: 48px; height: 64px; display: block; }
 .syntaxes .name { display: block; font-weight: 800; font-size: 32px; line-height: 1.2; }
 .syntaxes .what { display: block; font-size: 14px; color: var(--mist); font-variant-numeric: tabular-nums; }
 .syntaxes a:hover, .syntaxes a:focus-visible { background: var(--cobalt); }
@@ -62,7 +64,7 @@ footer { margin-top: 48px; font-size: 14px; }
   .page { grid-template-columns: minmax(0, 1fr); }
   .field { position: static; height: auto; padding: 32px 16px 24px; }
   .field a { flex-direction: row; gap: 16px; }
-  .field svg { width: 48px; }
+  .field svg { width: auto; height: 48px; }
   .field .word { font-size: 32px; }
   .sheet { margin: 0 16px 16px; padding: 24px; }
   .nav { margin-bottom: 32px; }

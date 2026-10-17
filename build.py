@@ -5,6 +5,7 @@ boardgameBuilder's palette.py and block_meta.py, the record syntax from Zariia's
 and site/<name>/index.html (the syntax as a page). The build stops if VERSION and the newest entry in
 CHANGELOG.md disagree, or if a syntax is not named by a primary name.
 """
+import hashlib
 import html
 import json
 import re
@@ -78,7 +79,23 @@ def nav(current):
     return "".join(f'<a href="{href}"{mark(key)}>{e(text)}</a>' for href, text, key in links)
 
 
-def page(title, body, current):
+def family_mark(s):
+    """A syntax's mark, by the family rule: one row per element type, three cells a row, one lit in
+    each row at a place set by the syntax's name, the last row's lit cell warm. SYNTAX's own mark is
+    the same rule drawn by hand for three rows."""
+    rows = len(s["element_types"])
+    cells = ""
+    for i, t in enumerate(s["element_types"]):
+        lit = hashlib.sha256(f'{s["name"]}/{t["name"]}'.encode()).digest()[0] % 3
+        for c in range(3):
+            fill = "#12213f" if c != lit else "#e8a53a" if i == rows - 1 else "#1848c0"
+            cells += f'<rect x="{4 + 40 * c}" y="{4 + 40 * i}" width="32" height="32" rx="3" fill="{fill}"/>'
+    return (f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 {40 * rows}" role="img" aria-label="The {e(s["name"])} syntax">'
+            f'<title>The {e(s["name"])} syntax: {rows} element types, one element chosen from each</title>'
+            f'<rect width="120" height="{40 * rows}" rx="6" fill="#0a1428"/>{cells}</svg>')
+
+
+def page(title, body, current, field=None):
     return f"""<!doctype html>
 <html lang="en-GB">
 <head>
@@ -92,7 +109,7 @@ def page(title, body, current):
 </head>
 <body>
 <div class="page">
-<div class="field"><a href="/">{MARK}<span class="word">SYNTAX</span></a><span class="v">Version {VERSION}</span></div>
+<div class="field">{field or f'<a href="/">{MARK}<span class="word">SYNTAX</span></a>'}<span class="v">{"" if field is None else '<a href="/">SYNTAX</a> · '}Version {VERSION}</span></div>
 <div class="sheet">
 <nav class="nav">{nav(current)}</nav>
 <main>{body}</main>
@@ -121,11 +138,14 @@ for s in SYNTAXES:
 <p class="aside">The syntax as data: <a href="/{s['slug']}.json">{s['slug']}.json</a>. It is read from {e(s['read_from'])} each time this site is built, so the two never differ.</p>"""
     out = HERE / "site" / s["slug"]
     out.mkdir(parents=True, exist_ok=True)
-    (out / "index.html").write_text(page(f"The {s['name']} syntax · SYNTAX", body, "syntaxes"))
+    mark = family_mark(s)
+    (out / "mark.svg").write_text(mark + "\n")
+    field = f'<a href="/{s["slug"]}/">{mark}<span class="word">{e(s["name"])}</span></a>'
+    (out / "index.html").write_text(page(f"The {s['name']} syntax · SYNTAX", body, "syntaxes", field))
     (HERE / "site" / f"{s['slug']}.json").write_text(json.dumps(s, indent=1, ensure_ascii=False) + "\n")
 
 rows = "".join(
-    f'<li><a href="/{s["slug"]}/"><span class="name">{e(s["name"])}</span>'
+    f'<li><a href="/{s["slug"]}/">{family_mark(s)}<span class="name">{e(s["name"])}</span>'
     f'<span class="what">{len(s["element_types"])} element types · {sum(len(t["elements"]) for t in s["element_types"])} elements · '
     f'instance: {", ".join(e(i["name"]) for i in s["instances"])}</span></a></li>'
     for s in SYNTAXES)
