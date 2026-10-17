@@ -1,7 +1,7 @@
 """Build SYNTAX's site and its syntax files. Run from this folder: python3 build.py
 
-Each syntax is read from the instance that holds it, never copied by hand: the board-game syntax comes from
-boardgameBuilder's palette.py and block_meta.py. It is written to site/<name>.json (the syntax as data)
+Each syntax is read from the instance that holds it, never copied by hand: the board game syntax comes from
+boardgameBuilder's palette.py and block_meta.py, the record syntax from Zariia's website/record-syntax.json. It is written to site/<name>.json (the syntax as data)
 and site/<name>/index.html (the syntax as a page). The build stops if VERSION and the newest entry in
 CHANGELOG.md disagree, or if a syntax is not named by a primary name.
 """
@@ -14,6 +14,7 @@ from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 BGB = HERE.parent / "boardgame-builder"
+ZARIIA = HERE.parent / "zariia"
 sys.path.insert(0, str(BGB))
 
 import palette  # noqa: E402
@@ -42,9 +43,22 @@ SYNTAXES = [{
     } for d in palette.DIMENSIONS],
     "instances": [{"name": "boardgameBuilder", "url": TOOL_URL,
                    "what": "a tool for designing a board game from these elements, with a public wiki of what each combination tends to produce",
-                   "wiki": WIKI_URL}],
+                   "links": [("the wiki", WIKI_URL)]}],
     "described_entities": [{"name": g["title"].split(" — ")[0], "url": f"{TOOL_URL}/#games/{g['id']}"} for g in games],
 }]
+
+record = json.loads((ZARIIA / "website" / "record-syntax.json").read_text())
+SYNTAXES.append({
+    "name": record["name"],
+    "read_from": "Zariia",
+    "slug": record["name"],
+    "breaks_up": record["breaks_up"],
+    "element_types": record["element_types"],
+    "instances": [{"name": "Zariia", "url": "https://zariia.org",
+                   "what": "a record simulator: upload two tracks and download one record, the second track sealed inside it with a key",
+                   "links": []}],
+    "described_entities": [],
+})
 
 for s in SYNTAXES:
     if not PRIMARY_NAME.match(s["name"]):
@@ -55,6 +69,7 @@ STYLE = (HERE / "style.css").read_text()
 
 
 MARK = (HERE / "brand" / "syntax-mark.svg").read_text()
+SOURCE = "https://github.com/prayasabhinav/syntax"
 
 
 def nav(current):
@@ -81,7 +96,7 @@ def page(title, body, current):
 <div class="sheet">
 <nav class="nav">{nav(current)}</nav>
 <main>{body}</main>
-<footer><p>SYNTAX is a project of <a href="https://prayasabhinav.net">Prayas Abhinav</a>. No analytics and no counters. Set in Mukta by Ek Type (<a href="/fonts/OFL.txt">SIL Open Font License</a>).</p></footer>
+<footer><p>SYNTAX is a project of <a href="https://prayasabhinav.net">Prayas Abhinav</a>, licensed <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>, with its source at <a href="{SOURCE}">github.com/prayasabhinav/syntax</a>. No analytics and no counters. Set in Mukta by Ek Type (<a href="/fonts/OFL.txt">SIL Open Font License</a>).</p></footer>
 </div>
 </div>
 </body>
@@ -93,16 +108,16 @@ for s in SYNTAXES:
     types = "".join(
         f"""<section class="type"><h3>{e(t['name'])} <span class="holds">holds {t['holds']}</span></h3>
 <p class="aside">{e(t['description'])}</p>
-<dl>{''.join(f'<dt>{e(x["name"])}</dt><dd>{e(x["description"])}</dd>' for x in t['elements'])}</dl></section>"""
+{f"<dl>{''.join(f'<dt>{e(x["name"])}</dt><dd>{e(x["description"])}</dd>' for x in t['elements'])}</dl>" if t['elements'] else ""}</section>"""
         for t in s["element_types"])
-    inst = "".join(f'<li><a href="{e(i["url"])}">{e(i["name"])}</a>: {e(i["what"])} (<a href="{e(i["wiki"])}">the wiki</a>)</li>' for i in s["instances"])
+    inst = "".join(f'<li><a href="{e(i["url"])}">{e(i["name"])}</a>: {e(i["what"])}{"".join(f' (<a href="{e(u)}">{e(label)}</a>)' for label, u in i["links"])}</li>' for i in s["instances"])
     ents = "".join(f'<li><a href="{e(x["url"])}">{e(x["name"])}</a></li>' for x in s["described_entities"])
     n_el = sum(len(t["elements"]) for t in s["element_types"])
     body = f"""<h1>The {e(s['name'])} syntax</h1>
-<p class="lede">It breaks up {e(s['breaks_up'])} into {len(s['element_types'])} element types and {n_el} elements. A {e(s['name'])} described in it is one choice of elements from each type.</p>
+<p class="lede">It breaks up {e(s['breaks_up'])}. It has {len(s['element_types'])} element types and {n_el} elements, and a {e(s['name'])} described in it is one choice of elements from each type.</p>
 <h2>Instances</h2><ul>{inst}</ul>
 <h2>Element types and elements</h2>{types}
-<h2>Described in it</h2><ul class="entities">{ents}</ul>
+<h2>Described in it</h2>{f'<ul class="entities">{ents}</ul>' if ents else '<p>Nothing is described in it yet.</p>'}
 <p class="aside">The syntax as data: <a href="/{s['slug']}.json">{s['slug']}.json</a>. It is read from {e(s['read_from'])} each time this site is built, so the two never differ.</p>"""
     out = HERE / "site" / s["slug"]
     out.mkdir(parents=True, exist_ok=True)
@@ -126,7 +141,7 @@ index = f"""<h1>Kinds of things, broken into parts</h1>
 </dl>
 <h2>Syntaxes</h2>
 <ul class="syntaxes">{rows}</ul>
-<p class="aside">Version {VERSION}. What changed, and what comes next, is kept with the project's source.</p>"""
+<p class="aside">Version {VERSION}. What changed and what comes next are in the <a href="{SOURCE}/blob/main/CHANGELOG.md">changelog</a> and the <a href="{SOURCE}/blob/main/ROADMAP.md">roadmap</a>, kept with the <a href="{SOURCE}">source</a>.</p>"""
 (HERE / "site" / "index.html").write_text(page("SYNTAX", index, "home"))
 listing = f"""<h1>Syntaxes</h1>
 <p class="lede">Each syntax breaks one kind of thing into element types and elements, and is named by the primary name of that kind of thing.</p>

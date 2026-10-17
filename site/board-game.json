@@ -410,7 +410,12 @@
    "name": "boardgameBuilder",
    "url": "https://boardgame.blevn.xyz",
    "what": "a tool for designing a board game from these elements, with a public wiki of what each combination tends to produce",
-   "wiki": "https://boardgame-wiki.blevn.xyz"
+   "links": [
+    [
+     "the wiki",
+     "https://boardgame-wiki.blevn.xyz"
+    ]
+   ]
   }
  ],
  "described_entities": [

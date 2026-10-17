@@ -17,6 +17,7 @@ Live at https://syntax.prayasabhinav.net.
 | Syntax | Read from | Instances |
 |---|---|---|
 | board game | `../boardgame-builder/palette.py`, `block_meta.py` | boardgameBuilder |
+| record | `../zariia/website/record-syntax.json` | Zariia |
 
 ## Building and deploying
 
@@ -38,3 +39,5 @@ caprover deploy -n myplaceholder -a syntax -t syntax.tar
 | `VERSION`, `CHANGELOG.md`, `ROADMAP.md` | The version, what changed, what comes next |
 
 No analytics and no counters.
+
+Licensed [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) (`LICENSE`): copy it, change it and build on it, including commercially, and say where it came from.

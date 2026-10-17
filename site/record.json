@@ -1,0 +1,66 @@
+{
+ "name": "record",
+ "read_from": "Zariia",
+ "slug": "record",
+ "breaks_up": "a record with two channels in one file: one that plays for anyone, and one sealed with a key",
+ "element_types": [
+  {
+   "name": "open channel",
+   "holds": "one",
+   "description": "The track anyone hears. It plays whole in any player, with no key.",
+   "elements": []
+  },
+  {
+   "name": "sealed channel",
+   "holds": "one",
+   "description": "A second track carried in the same file and locked with a key. Anyone can see that it is there; with the key it plays in sync with the open channel.",
+   "elements": []
+  },
+  {
+   "name": "class",
+   "holds": "one",
+   "description": "What the sealed channel is, beside the open one.",
+   "elements": [
+    {
+     "letter": "V",
+     "name": "the counter-voice",
+     "description": "another take of the same moment"
+    },
+    {
+     "letter": "M",
+     "name": "the room",
+     "description": "what else was audible: talk, error, the street"
+    },
+    {
+     "letter": "X",
+     "name": "the refusal",
+     "description": "what was cut, and why"
+    },
+    {
+     "letter": "Y",
+     "name": "the reply",
+     "description": "a second musician answering, recorded later"
+    },
+    {
+     "letter": "S",
+     "name": "the score",
+     "description": "the instruction that produced the result"
+    },
+    {
+     "letter": "O",
+     "name": "open throughout",
+     "description": "there is no sealed channel"
+    }
+   ]
+  }
+ ],
+ "instances": [
+  {
+   "name": "Zariia",
+   "url": "https://zariia.org",
+   "what": "a record simulator: upload two tracks and download one record, the second track sealed inside it with a key",
+   "links": []
+  }
+ ],
+ "described_entities": []
+}

@@ -2,6 +2,13 @@
 
 What changed in SYNTAX, newest first. The version is in `VERSION` and shown on every page; `build.py` stops if `VERSION` and the newest entry here disagree. To add an entry: raise `VERSION` (the middle number for something people can use, the last for a fix), add a section at the top with the same number and the date, and build.
 
+## 0.3.0 — 17 October 2026
+
+- The second syntax, **record**: a record with two channels in one file, broken into open channel, sealed channel and class. It is read from Zariia's `website/record-syntax.json`, so the two never differ. Zariia is its instance.
+- SYNTAX is licensed CC BY 4.0: the full text is in `LICENSE`, and every page's footer says so.
+- Every page's footer links the source on GitHub, and the home page links the changelog and the roadmap there.
+- A syntax's page opens with two sentences instead of one, so a description containing a colon no longer runs into the counts.
+
 ## 0.2.3 — 17 October 2026
 
 - Syntaxes in the navigation opens its own page, /syntaxes/, listing every syntax. Before this it jumped to a section of the home page and looked as though it went nowhere.
