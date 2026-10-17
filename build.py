@@ -31,6 +31,7 @@ PRIMARY_NAME = re.compile(r"^[a-z]+( [a-z]+)*$")
 games = json.loads((BGB / "games.json").read_text())
 SYNTAXES = [{
     "name": "board game",
+    "read_from": "boardgameBuilder",
     "slug": "board-game",
     "breaks_up": "a board game, or any game played at a table with things at hand",
     "element_types": [{
@@ -57,7 +58,7 @@ MARK = (HERE / "brand" / "syntax-mark.svg").read_text()
 
 
 def nav(current):
-    links = [("/", "Home", "")] + [(f"/{x['slug']}/", x["name"], x["slug"]) for x in SYNTAXES]
+    links = [("/", "Home", "home"), ("/#syntaxes", "Syntaxes", "syntaxes")]
     mark = lambda key: ' aria-current="page"' if key == current else ""
     return "".join(f'<a href="{href}"{mark(key)}>{e(text)}</a>' for href, text, key in links)
 
@@ -98,14 +99,14 @@ for s in SYNTAXES:
     ents = "".join(f'<li><a href="{e(x["url"])}">{e(x["name"])}</a></li>' for x in s["described_entities"])
     n_el = sum(len(t["elements"]) for t in s["element_types"])
     body = f"""<h1>The {e(s['name'])} syntax</h1>
-<p class="lede">It breaks up {e(s['breaks_up'])} into {len(s['element_types'])} element types and {n_el} elements. A board game described in it is one choice of elements from each type.</p>
+<p class="lede">It breaks up {e(s['breaks_up'])} into {len(s['element_types'])} element types and {n_el} elements. A {e(s['name'])} described in it is one choice of elements from each type.</p>
 <h2>Instances</h2><ul>{inst}</ul>
 <h2>Element types and elements</h2>{types}
-<h2>Board games described in it</h2><ul class="entities">{ents}</ul>
-<p class="aside">The syntax as data: <a href="/{s['slug']}.json">{s['slug']}.json</a>. It is read from boardgameBuilder each time this site is built, so the two never differ.</p>"""
+<h2>Described in it</h2><ul class="entities">{ents}</ul>
+<p class="aside">The syntax as data: <a href="/{s['slug']}.json">{s['slug']}.json</a>. It is read from {e(s['read_from'])} each time this site is built, so the two never differ.</p>"""
     out = HERE / "site" / s["slug"]
     out.mkdir(parents=True, exist_ok=True)
-    (out / "index.html").write_text(page(f"The {s['name']} syntax · SYNTAX", body, s["slug"]))
+    (out / "index.html").write_text(page(f"The {s['name']} syntax · SYNTAX", body, "syntaxes"))
     (HERE / "site" / f"{s['slug']}.json").write_text(json.dumps(s, indent=1, ensure_ascii=False) + "\n")
 
 rows = "".join(
@@ -117,16 +118,16 @@ index = f"""<h1>Kinds of things, broken into parts</h1>
 <p class="lede">A kind of thing can be broken into the same parts every time. SYNTAX writes those parts down: the element types a kind of thing has, and the elements of each type. Once they are written, each thing of that kind can be described as a choice of elements, compared with others, and made by choosing differently.</p>
 <h2>The words</h2>
 <dl class="words">
-<dt>syntax</dt><dd>how one kind of thing breaks into element types and elements. A syntax is named by the primary name of the kind of thing: <em>board game</em>.</dd>
-<dt>element type</dt><dd>one group of parts every thing of that kind has, such as <em>victory condition</em>. It holds one element or several.</dd>
-<dt>element</dt><dd>one part, such as <em>race to finish</em>.</dd>
-<dt>entity</dt><dd>one particular thing of that kind, described as its choice of elements: Pig is a board game of <em>push your luck</em>, <em>race to finish</em> and <em>take turns</em>, among others.</dd>
-<dt>instance</dt><dd>a tool built on a syntax. boardgameBuilder is an instance of the board game syntax.</dd>
+<dt>syntax</dt><dd>how one kind of thing breaks into element types and elements. A syntax is named by the primary name of the kind of thing it breaks up, never by a tool or a brand.</dd>
+<dt>element type</dt><dd>one group of parts every thing of that kind has. It holds one element or several.</dd>
+<dt>element</dt><dd>one part.</dd>
+<dt>entity</dt><dd>one particular thing of that kind, described as its choice of elements.</dd>
+<dt>instance</dt><dd>a tool built on a syntax. Each syntax's page names its instances and the things described in it.</dd>
 </dl>
-<h2>Syntaxes</h2>
+<h2 id="syntaxes">Syntaxes</h2>
 <ul class="syntaxes">{rows}</ul>
 <p class="aside">Version {VERSION}. What changed, and what comes next, is kept with the project's source.</p>"""
-(HERE / "site" / "index.html").write_text(page("SYNTAX", index, ""))
+(HERE / "site" / "index.html").write_text(page("SYNTAX", index, "home"))
 (HERE / "site" / "favicon.svg").write_text(MARK)
 shutil.copytree(HERE / "fonts", HERE / "site" / "fonts", dirs_exist_ok=True)
 print(f"built SYNTAX {VERSION}: {len(SYNTAXES)} syntax(es)")

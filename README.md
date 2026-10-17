@@ -6,11 +6,11 @@ Live at https://syntax.prayasabhinav.net.
 
 ## The words
 
-- **syntax**: how one kind of thing breaks into element types and elements, named by the primary name of that kind of thing: *board game*.
-- **element type**: one group of parts every thing of that kind has, such as *victory condition*. It holds one element or several.
-- **element**: one part, such as *race to finish*.
-- **entity**: one particular thing of that kind, described as its choice of elements. Pig is a board game of *push your luck*, *race to finish* and *take turns*, among others.
-- **instance**: a tool built on a syntax. boardgameBuilder is an instance of the board game syntax.
+- **syntax**: how one kind of thing breaks into element types and elements, named by the primary name of the kind of thing it breaks up, never by a tool or a brand.
+- **element type**: one group of parts every thing of that kind has. It holds one element or several.
+- **element**: one part.
+- **entity**: one particular thing of that kind, described as its choice of elements.
+- **instance**: a tool built on a syntax.
 
 ## Syntaxes
 

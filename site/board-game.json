@@ -1,5 +1,6 @@
 {
  "name": "board game",
+ "read_from": "boardgameBuilder",
  "slug": "board-game",
  "breaks_up": "a board game, or any game played at a table with things at hand",
  "element_types": [
