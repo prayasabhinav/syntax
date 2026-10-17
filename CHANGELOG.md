@@ -2,6 +2,10 @@
 
 What changed in SYNTAX, newest first. The version is in `VERSION` and shown on every page; `build.py` stops if `VERSION` and the newest entry here disagree. To add an entry: raise `VERSION` (the middle number for something people can use, the last for a fix), add a section at the top with the same number and the date, and build.
 
+## 0.2.3 — 17 October 2026
+
+- Syntaxes in the navigation opens its own page, /syntaxes/, listing every syntax. Before this it jumped to a section of the home page and looked as though it went nowhere.
+
 ## 0.2.2 — 17 October 2026
 
 - No syntax is named by the site's own frame. The navigation is Home and Syntaxes, so it stays the same however many syntaxes there are; the definitions on the home page no longer take their examples from the board game syntax; and a syntax's page takes its wording from that syntax's own name and source.

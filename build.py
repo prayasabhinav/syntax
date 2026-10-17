@@ -58,7 +58,7 @@ MARK = (HERE / "brand" / "syntax-mark.svg").read_text()
 
 
 def nav(current):
-    links = [("/", "Home", "home"), ("/#syntaxes", "Syntaxes", "syntaxes")]
+    links = [("/", "Home", "home"), ("/syntaxes/", "Syntaxes", "syntaxes")]
     mark = lambda key: ' aria-current="page"' if key == current else ""
     return "".join(f'<a href="{href}"{mark(key)}>{e(text)}</a>' for href, text, key in links)
 
@@ -124,10 +124,15 @@ index = f"""<h1>Kinds of things, broken into parts</h1>
 <dt>entity</dt><dd>one particular thing of that kind, described as its choice of elements.</dd>
 <dt>instance</dt><dd>a tool built on a syntax. Each syntax's page names its instances and the things described in it.</dd>
 </dl>
-<h2 id="syntaxes">Syntaxes</h2>
+<h2>Syntaxes</h2>
 <ul class="syntaxes">{rows}</ul>
 <p class="aside">Version {VERSION}. What changed, and what comes next, is kept with the project's source.</p>"""
 (HERE / "site" / "index.html").write_text(page("SYNTAX", index, "home"))
+listing = f"""<h1>Syntaxes</h1>
+<p class="lede">Each syntax breaks one kind of thing into element types and elements, and is named by the primary name of that kind of thing.</p>
+<ul class="syntaxes">{rows}</ul>"""
+(HERE / "site" / "syntaxes").mkdir(parents=True, exist_ok=True)
+(HERE / "site" / "syntaxes" / "index.html").write_text(page("Syntaxes · SYNTAX", listing, "syntaxes"))
 (HERE / "site" / "favicon.svg").write_text(MARK)
 shutil.copytree(HERE / "fonts", HERE / "site" / "fonts", dirs_exist_ok=True)
 print(f"built SYNTAX {VERSION}: {len(SYNTAXES)} syntax(es)")
