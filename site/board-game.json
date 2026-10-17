@@ -1,0 +1,604 @@
+{
+ "name": "board game",
+ "slug": "board-game",
+ "breaks_up": "a board game, or any game played at a table with things at hand",
+ "element_types": [
+  {
+   "name": "Core mechanic",
+   "holds": "several",
+   "description": "The main thing players do on their turn.",
+   "elements": [
+    {
+     "name": "roll and move",
+     "description": "You roll a dice, then move your piece that many spaces along a path. Like Snakes and Ladders or Monopoly."
+    },
+    {
+     "name": "drafting",
+     "description": "You pick one card from your hand, then pass the rest to the next player. Everyone keeps choosing the best one left, like sharing snacks but for cards."
+    },
+    {
+     "name": "bidding",
+     "description": "Players offer money or things to buy something. Whoever offers the most wins it. Like an auction at a market."
+    },
+    {
+     "name": "push your luck",
+     "description": "Keep risking for more points — but if you go too far, you lose what you had. Like saying \"one more dive!\" when you should have stopped."
+    },
+    {
+     "name": "area control",
+     "description": "Players fight to have the most pieces in different parts of a map. Whoever holds the most spots wins that area."
+    },
+    {
+     "name": "worker placement",
+     "description": "You put your little workers on different jobs on the board. If someone takes a spot, no one else can use it that turn."
+    },
+    {
+     "name": "pattern building",
+     "description": "You match colours or shapes to make patterns — straight lines, mosaics, sets. Like building with bright tiles."
+    },
+    {
+     "name": "hand management",
+     "description": "You hold a hand of cards and decide which to play, when, and which to keep for later. Choosing carefully matters most."
+    },
+    {
+     "name": "trick-taking",
+     "description": "Everyone plays one card. The highest card wins all of them — that's a \"trick\". Whoever wins leads next."
+    },
+    {
+     "name": "negotiation",
+     "description": "Players talk to each other and make deals. \"I'll give you wood if you give me wheat.\" Trades and promises shape the game."
+    },
+    {
+     "name": "set collection",
+     "description": "You gather groups of matching things — three of one colour, four of one type — to score points. Like collecting stamp sets."
+    },
+    {
+     "name": "tile placement",
+     "description": "You lay tiles down to build a shared map — connecting roads, cities, fields. Like Carcassonne."
+    },
+    {
+     "name": "call and response",
+     "description": "One player says a word or a line, or makes a move, and the next player answers it with one of their own. The game grows like a chain, the way a song can go back and forth between two singers."
+    },
+    {
+     "name": "playing in silence",
+     "description": "Nobody may talk. You can only show what you mean by what you play and when you play it. In The Mind, players put numbered cards down in order without saying a word."
+    },
+    {
+     "name": "change the rules",
+     "description": "On your turn you can change a rule instead of only making a move, so the game you finish is not the game you started. In Nomic, changing the rules is the whole game."
+    },
+    {
+     "name": "role-play",
+     "description": "You speak and act as a character instead of as yourself, and decide what that character would do. Tabletop role-playing games and live-action role-play (LARP) are built on this."
+    },
+    {
+     "name": "dexterity",
+     "description": "Your hands decide what happens: flicking, stacking, balancing or throwing. In Jenga you pull blocks out of a tower without toppling it; in carrom you flick the striker."
+    },
+    {
+     "name": "drawing the map",
+     "description": "Players draw or build the map as they play, so the world is made by the people in it. In The Quiet Year, a community's map grows week by week on one sheet of paper."
+    }
+   ]
+  },
+  {
+   "name": "Victory condition",
+   "holds": "one",
+   "description": "What players are trying to do.",
+   "elements": [
+    {
+     "name": "race to finish",
+     "description": "First player to reach the end wins. The whole game is a race."
+    },
+    {
+     "name": "most points",
+     "description": "Whoever has the highest score at the end wins. Points come from many sources — sets, places, cards."
+    },
+    {
+     "name": "last standing",
+     "description": "Knock out other players one by one. The last one alive wins."
+    },
+    {
+     "name": "cooperative survival",
+     "description": "Everyone wins or loses together. The game tries to beat all of you. Stay alive long enough and you all win."
+    },
+    {
+     "name": "shared objective",
+     "description": "All players work together to reach a goal — a score, a final state, a saved world."
+    },
+    {
+     "name": "hidden personal goal",
+     "description": "Each player has a secret goal. No one knows what the others are trying to do. Win without giving yourself away."
+    },
+    {
+     "name": "narrative completion",
+     "description": "You play through a story. The game ends when the story does — happy ending, tragic ending, your choice."
+    },
+    {
+     "name": "no objective",
+     "description": "The game ends, but nobody wins or loses. You stop and look at what you made or what happened, and talk about it if you like."
+    },
+    {
+     "name": "set your own goal",
+     "description": "Each player decides what doing well means for them, before the game or after it. One player may be happy to save a single piece; another wants to save every one."
+    },
+    {
+     "name": "one loser",
+     "description": "Nobody wins. The game goes on until one player loses, and everyone else is simply safe."
+    },
+    {
+     "name": "keep the game going",
+     "description": "The aim is to keep the game going, not to end it. Everyone helps play continue, the way a role-playing campaign can run for years. The writer James Carse called these infinite games."
+    },
+    {
+     "name": "cannot be won",
+     "description": "The game is made so that nobody can win it, or it pushes back against being played at all. Playing it shows you something by refusing what you expect from a game."
+    }
+   ]
+  },
+  {
+   "name": "Player interaction",
+   "holds": "one",
+   "description": "How players affect each other.",
+   "elements": [
+    {
+     "name": "solo in parallel",
+     "description": "Everyone plays at the same time but doesn't really affect each other. You build your own thing while others build theirs."
+    },
+    {
+     "name": "direct confrontation",
+     "description": "Players attack, steal, or sabotage each other on purpose. \"Take that!\" — they target you, you target them."
+    },
+    {
+     "name": "indirect via board",
+     "description": "You don't attack each other directly — you change the board, take spots, build walls. They feel it through the game state."
+    },
+    {
+     "name": "fully cooperative",
+     "description": "Everyone is on the same team, against the game itself. You all win together, or you all lose together."
+    },
+    {
+     "name": "semi-cooperative",
+     "description": "Mostly working together, but each player has a small private reason to win more than the others."
+    },
+    {
+     "name": "team vs team",
+     "description": "Two teams play against each other. You and your teammates work together, against the other side."
+    },
+    {
+     "name": "traitor",
+     "description": "Most players are on the same team — but one (or more) is secretly playing against everyone else. Can you spot them?"
+    },
+    {
+     "name": "playing by letter",
+     "description": "Players are far apart and take turns by sending letters or messages. One game can last weeks or even a whole year, and waiting for the reply is part of it."
+    },
+    {
+     "name": "absent player",
+     "description": "One player is not at the table. It might be someone from long ago, a player from an earlier game, or a ghost who can only give hints. In ancient Egypt, the game Senet came to be linked with the journey after death."
+    },
+    {
+     "name": "game master",
+     "description": "One player runs the world for everyone else: describing places, playing the people the others meet, and deciding what happens next. The others play their own characters."
+    },
+    {
+     "name": "public game",
+     "description": "The game is played in a street, a park or a market, and anyone passing by can join in. Street games like stapu, hopscotch drawn in chalk, work this way."
+    }
+   ]
+  },
+  {
+   "name": "Chance or skill",
+   "holds": "one",
+   "description": "How much luck vs. brain-work decides the game.",
+   "elements": [
+    {
+     "name": "mostly chance",
+     "description": "Dice and random draws decide most of what happens. Skill barely matters. Snakes and Ladders is mostly chance."
+    },
+    {
+     "name": "chance with mitigation",
+     "description": "There IS dice and randomness, but you have ways to soften bad luck — re-rolls, cards, choices. You're not helpless."
+    },
+    {
+     "name": "skill with luck",
+     "description": "Mostly your choices matter, but a small bit of luck adds spice. Catan and Carcassonne sit here."
+    },
+    {
+     "name": "mostly skill",
+     "description": "Pure brain-work. No dice, no surprises. The smartest player wins. Chess and Go are mostly skill."
+    },
+    {
+     "name": "chance read as a sign",
+     "description": "The dice or cards are read as a message, not added up as a score. What you throw tells you something to think about. Long ago in India, Tibet and China, people threw dice this way to ask questions."
+    },
+    {
+     "name": "attunement",
+     "description": "Not luck, and not working it out. You succeed by sensing when the others are about to act, like friends who start to speak at the same moment."
+    },
+    {
+     "name": "dice tell the story",
+     "description": "A roll of the dice is looked up on a table that says what happens next, such as who you meet on the road. The dice write part of the story, as they do in Dungeons & Dragons."
+    }
+   ]
+  },
+  {
+   "name": "Theme",
+   "holds": "one",
+   "description": "What the game is about.",
+   "elements": [
+    {
+     "name": "abstract",
+     "description": "No story — just shapes, colours, patterns. Like Chess or Go. The game is the game."
+    },
+    {
+     "name": "historical",
+     "description": "Set in real history — wars, empires, trade routes. Real places, real times."
+    },
+    {
+     "name": "fantasy",
+     "description": "Magic, dragons, wizards, quests. Things that don't exist in real life."
+    },
+    {
+     "name": "science fiction",
+     "description": "Space, robots, distant futures. Aliens, lasers, planets."
+    },
+    {
+     "name": "everyday life",
+     "description": "Farms, kitchens, trains, cities — places and things you recognise from real life."
+    },
+    {
+     "name": "absurd",
+     "description": "Weird, silly, nonsense — exploding kittens, unstable unicorns. Made to make you laugh."
+    },
+    {
+     "name": "educational",
+     "description": "Teaches you something while you play — history facts, words, maths."
+    },
+    {
+     "name": "real-world issue",
+     "description": "About something happening now — climate, justice, migration. The game makes you think about it."
+    },
+    {
+     "name": "poetic",
+     "description": "The game works like a poem: short, a little strange, and made to make you notice something ordinary in a new way."
+    },
+    {
+     "name": "ritual or sacred",
+     "description": "The board is a path towards something holy, and moving along it is a kind of practice. Snakes and Ladders began in India as gyan chaupar, where the ladders stood for virtues and the snakes for vices."
+    },
+    {
+     "name": "mortality and loss",
+     "description": "The game is about time running out, growing old or losing someone. Playing gives people a way to think about something hard together."
+    },
+    {
+     "name": "war and conquest",
+     "description": "Armies, borders and battles. People have long played games in place of fighting, and chess grew out of chaturanga, an Indian game whose pieces were the parts of an army."
+    }
+   ]
+  },
+  {
+   "name": "Information visibility",
+   "holds": "one",
+   "description": "What players can see about each other.",
+   "elements": [
+    {
+     "name": "full information",
+     "description": "Everything is visible. Every player sees every card, every move. No secrets. Like Chess."
+    },
+    {
+     "name": "hidden hands",
+     "description": "Each player holds cards no one else can see. You bluff, hint, and guess."
+    },
+    {
+     "name": "hidden identity",
+     "description": "Some players have a secret role — like a spy or a villain. Nobody knows who is who at the start."
+    },
+    {
+     "name": "deduction",
+     "description": "Use clues to figure out hidden facts — who, what, where. Like Cluedo or a mystery."
+    },
+    {
+     "name": "bluffing",
+     "description": "Lie about what you have. Pretend you're stronger or weaker than you are. Other players have to guess."
+    },
+    {
+     "name": "rules you discover",
+     "description": "One player knows a secret rule. Everyone else finds it out only by breaking it and being told no. In the card game Mao, newcomers learn the rules this way."
+    },
+    {
+     "name": "one knows, cannot say",
+     "description": "One player can see the answer but is not allowed to say it. They can only give hints, such as pictures, and the others have to guess. In Mysterium, a ghost gives the players vision cards."
+    },
+    {
+     "name": "map revealed as you go",
+     "description": "The map starts hidden. Areas are turned over only when a player explores them, so nobody knows what lies ahead until they go there."
+    }
+   ]
+  },
+  {
+   "name": "Timing",
+   "holds": "several",
+   "description": "When and how fast players act: one after another, all at once, whenever they like, against a clock, across real days, slowed down or speeding up.",
+   "elements": [
+    {
+     "name": "take turns",
+     "description": "One player acts at a time, going round the table. Everyone else watches, waits and plans for their own turn. Chess and most board games work this way."
+    },
+    {
+     "name": "everyone at once",
+     "description": "Everyone chooses in secret at the same moment, then all reveal together. Nobody waits for anybody. In 7 Wonders, every player picks a card at once and passes the rest."
+    },
+    {
+     "name": "no turns",
+     "description": "There are no turns at all. Anyone may act at any moment, and whoever is quickest gets there first. In Set, everyone hunts the same cards at once."
+    },
+    {
+     "name": "timed turns",
+     "description": "Turns still come in order, but each one has a clock: a sand timer, a phone, a count to ten. When time runs out, the move is lost or made for you. In 3 Quarters every move has 20 seconds."
+    },
+    {
+     "name": "real-time span",
+     "description": "The game runs on real days or weeks, not turns. You might make one move each morning, so waiting is part of playing."
+    },
+    {
+     "name": "sedated",
+     "description": "The game slows players down on purpose: a pause before each move, a breath, a long wait built into the rules. The slowness is part of the play, not a delay."
+    },
+    {
+     "name": "accelerated",
+     "description": "The game speeds up as it goes: timers shrink, more happens each round, and the end comes in a rush. In Tetris the pieces fall faster at every level."
+    }
+   ]
+  },
+  {
+   "name": "Simulation",
+   "holds": "several",
+   "description": "The real problem the game models, and how players learn from it.",
+   "elements": [
+    {
+     "name": "model a system",
+     "description": "The board works like a real system, such as how water moves between a village's wells and fields, so a move has the effect it would have in real life."
+    },
+    {
+     "name": "stakeholder roles",
+     "description": "Each player plays a real group with its own needs, such as farmers, a village council or a shopkeeper. You see the problem from where they stand."
+    },
+    {
+     "name": "shared resource",
+     "description": "Everyone draws from one limited thing, such as the water under a village. If players take too much, it runs out for everyone. Villages in Andhra Pradesh have played games like this about their own groundwater."
+    },
+    {
+     "name": "delayed effects",
+     "description": "What you do now shows its effect only a few rounds later, the way a choice made this year shows up years later in real life."
+    },
+    {
+     "name": "try a rule",
+     "description": "Players agree a new rule for everyone, then play on to see what it changes. It is a safe way to test a rule before trying it for real."
+    },
+    {
+     "name": "debrief",
+     "description": "After the game, everyone talks it through: What happened? Why? How is it like the real problem? What would happen if we changed something?"
+    },
+    {
+     "name": "irreversible change",
+     "description": "What you do changes the game permanently. Cards get torn up, stickers go on the board, and the next game starts where this one ended. Nothing can be undone."
+    },
+    {
+     "name": "rules make an argument",
+     "description": "The rules themselves make a point about the world. If a game about a city rewards only building roads, the game is saying something about cities. The writer Ian Bogost calls this procedural rhetoric."
+    },
+    {
+     "name": "stakes outside the game",
+     "description": "What happens in the game carries into real life: real money, a real promise, a friendship tested. The line around a game is thinner than it looks."
+    },
+    {
+     "name": "points stand for values",
+     "description": "The game turns something that matters, like health or kindness, into points, and players start chasing the points instead. It shows what happens when a number replaces what it was meant to measure."
+    },
+    {
+     "name": "rehearse a future",
+     "description": "Players practise a way of living or working that does not exist yet, such as a village that shares everything, to see how it might feel before anyone tries it for real."
+    }
+   ]
+  }
+ ],
+ "instances": [
+  {
+   "name": "boardgameBuilder",
+   "url": "https://boardgame.blevn.xyz",
+   "what": "a tool for designing a board game from these elements, with a public wiki of what each combination tends to produce (https://boardgame-wiki.blevn.xyz)"
+  }
+ ],
+ "described_entities": [
+  {
+   "name": "Pig",
+   "url": "https://boardgame.blevn.xyz/#games/pig"
+  },
+  {
+   "name": "Three-card Hanabi",
+   "url": "https://boardgame.blevn.xyz/#games/mini-hanabi"
+  },
+  {
+   "name": "The blocking grid",
+   "url": "https://boardgame.blevn.xyz/#games/blocking-grid"
+  },
+  {
+   "name": "Werewolf-5",
+   "url": "https://boardgame.blevn.xyz/#games/werewolf-5"
+  },
+  {
+   "name": "Paper auction",
+   "url": "https://boardgame.blevn.xyz/#games/paper-auction"
+  },
+  {
+   "name": "Pick-and-pass",
+   "url": "https://boardgame.blevn.xyz/#games/pick-and-pass"
+  },
+  {
+   "name": "Last-card-out",
+   "url": "https://boardgame.blevn.xyz/#games/last-card-out"
+  },
+  {
+   "name": "Nim",
+   "url": "https://boardgame.blevn.xyz/#games/nim"
+  },
+  {
+   "name": "Raja Mantri Chor Sipahi",
+   "url": "https://boardgame.blevn.xyz/#games/raja-mantri-chor-sipahi"
+  },
+  {
+   "name": "Gulaam Chor",
+   "url": "https://boardgame.blevn.xyz/#games/gulaam-chor"
+  },
+  {
+   "name": "Satte pe Satta",
+   "url": "https://boardgame.blevn.xyz/#games/satte-pe-satta"
+  },
+  {
+   "name": "Dots and Boxes",
+   "url": "https://boardgame.blevn.xyz/#games/dots-and-boxes"
+  },
+  {
+   "name": "Battleship on paper",
+   "url": "https://boardgame.blevn.xyz/#games/paper-battleship"
+  },
+  {
+   "name": "Bulls and Cows",
+   "url": "https://boardgame.blevn.xyz/#games/bulls-and-cows"
+  },
+  {
+   "name": "Cheat",
+   "url": "https://boardgame.blevn.xyz/#games/cheat"
+  },
+  {
+   "name": "Spoons",
+   "url": "https://boardgame.blevn.xyz/#games/spoons"
+  },
+  {
+   "name": "Cram",
+   "url": "https://boardgame.blevn.xyz/#games/cram"
+  },
+  {
+   "name": "SOS",
+   "url": "https://boardgame.blevn.xyz/#games/sos"
+  },
+  {
+   "name": "Three Men's Morris",
+   "url": "https://boardgame.blevn.xyz/#games/three-mens-morris"
+  },
+  {
+   "name": "Set",
+   "url": "https://boardgame.blevn.xyz/#games/set"
+  },
+  {
+   "name": "3 Quarters",
+   "url": "https://boardgame.blevn.xyz/#games/3-quarters"
+  },
+  {
+   "name": "All or Nothing",
+   "url": "https://boardgame.blevn.xyz/#games/all-or-nothing"
+  },
+  {
+   "name": "Eleusis",
+   "url": "https://boardgame.blevn.xyz/#games/eleusis"
+  },
+  {
+   "name": "Mao",
+   "url": "https://boardgame.blevn.xyz/#games/mao"
+  },
+  {
+   "name": "Nomic",
+   "url": "https://boardgame.blevn.xyz/#games/nomic"
+  },
+  {
+   "name": "The Mind",
+   "url": "https://boardgame.blevn.xyz/#games/the-mind"
+  },
+  {
+   "name": "Exquisite Corpse",
+   "url": "https://boardgame.blevn.xyz/#games/exquisite-corpse"
+  },
+  {
+   "name": "Consequences",
+   "url": "https://boardgame.blevn.xyz/#games/consequences"
+  },
+  {
+   "name": "Racetrack",
+   "url": "https://boardgame.blevn.xyz/#games/racetrack"
+  },
+  {
+   "name": "Sprouts",
+   "url": "https://boardgame.blevn.xyz/#games/sprouts"
+  },
+  {
+   "name": "Hex",
+   "url": "https://boardgame.blevn.xyz/#games/hex"
+  },
+  {
+   "name": "Sim",
+   "url": "https://boardgame.blevn.xyz/#games/sim"
+  },
+  {
+   "name": "Chomp",
+   "url": "https://boardgame.blevn.xyz/#games/chomp"
+  },
+  {
+   "name": "Kayles",
+   "url": "https://boardgame.blevn.xyz/#games/kayles"
+  },
+  {
+   "name": "Quantum tic-tac-toe",
+   "url": "https://boardgame.blevn.xyz/#games/quantum-tic-tac-toe"
+  },
+  {
+   "name": "Ultimate tic-tac-toe",
+   "url": "https://boardgame.blevn.xyz/#games/ultimate-tic-tac-toe"
+  },
+  {
+   "name": "Paper soccer",
+   "url": "https://boardgame.blevn.xyz/#games/paper-soccer"
+  },
+  {
+   "name": "Mū Tōrere",
+   "url": "https://boardgame.blevn.xyz/#games/mu-torere"
+  },
+  {
+   "name": "Aadu Puli Attam",
+   "url": "https://boardgame.blevn.xyz/#games/aadu-puli-attam"
+  },
+  {
+   "name": "Moksha Patam",
+   "url": "https://boardgame.blevn.xyz/#games/moksha-patam"
+  },
+  {
+   "name": "The Royal Game of Ur",
+   "url": "https://boardgame.blevn.xyz/#games/royal-game-of-ur"
+  },
+  {
+   "name": "Senet",
+   "url": "https://boardgame.blevn.xyz/#games/senet"
+  },
+  {
+   "name": "Kemps",
+   "url": "https://boardgame.blevn.xyz/#games/kemps"
+  },
+  {
+   "name": "Liar's Dice",
+   "url": "https://boardgame.blevn.xyz/#games/liars-dice"
+  },
+  {
+   "name": "Cuttle",
+   "url": "https://boardgame.blevn.xyz/#games/cuttle"
+  },
+  {
+   "name": "Mendikot",
+   "url": "https://boardgame.blevn.xyz/#games/mendikot"
+  },
+  {
+   "name": "Penney's game",
+   "url": "https://boardgame.blevn.xyz/#games/penneys-game"
+  }
+ ]
+}
