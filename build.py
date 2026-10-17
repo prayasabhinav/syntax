@@ -55,9 +55,9 @@ SYNTAXES.append({
     "slug": record["name"],
     "breaks_up": record["breaks_up"],
     "element_types": record["element_types"],
-    "instances": [{"name": "Zariia", "url": "https://zariia.org",
+    "instances": [{"name": "Zariia", "url": "https://zariia.org/simulator",
                    "what": "a record simulator: upload two tracks and download one record, the second track sealed inside it with a key",
-                   "links": []}],
+                   "links": [("zariia.org", "https://zariia.org")]}],
     "described_entities": [],
 })
 

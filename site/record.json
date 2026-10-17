@@ -57,9 +57,14 @@
  "instances": [
   {
    "name": "Zariia",
-   "url": "https://zariia.org",
+   "url": "https://zariia.org/simulator",
    "what": "a record simulator: upload two tracks and download one record, the second track sealed inside it with a key",
-   "links": []
+   "links": [
+    [
+     "zariia.org",
+     "https://zariia.org"
+    ]
+   ]
   }
  ],
  "described_entities": []
