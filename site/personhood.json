@@ -3,6 +3,7 @@
  "read_from": "Split-Domain Cognition",
  "slug": "personhood",
  "breaks_up": "a piece of work in which language work and judgement work are both in play, by who holds each part of it",
+ "left_out": "Personhood for things. A model and code are things: they hold a part only as tools a person set up, and have no personhood. Personhood is partial for an animal: it holds intent and no other part, because language, judgement and residue are written or ruled, and an animal's signals are read for structure, never translated.",
  "element_types": [
   {
    "name": "intent",
@@ -14,16 +15,22 @@
      "description": "the one doing the work"
     },
     {
+     "name": "an animal",
+     "description": "the animal whose life it is; it holds its own intent, which nobody states for it, neither a model nor a person. An animal holds intent and no other part, so its personhood here is partial"
+    },
+    {
      "name": "other people",
      "description": "people other than the one doing the work"
     },
     {
      "name": "a model under negotiation",
-     "description": "a model, holding this part only where that was negotiated and set up for this work, its answers held by code"
+     "description": "a thing, not a person: a model, holding this part only where that was negotiated and set up for this work, its answers held by code",
+     "thing": true
     },
     {
      "name": "code",
-     "description": "rules fixed in advance as a written standard and run as a program anyone bound by them can read"
+     "description": "a thing, not a person: rules fixed in advance as a written standard and run as a program anyone bound by them can read",
+     "thing": true
     }
    ]
   },
@@ -42,11 +49,13 @@
     },
     {
      "name": "a model under negotiation",
-     "description": "a model, holding this part only where that was negotiated and set up for this work, its answers held by code"
+     "description": "a thing, not a person: a model, holding this part only where that was negotiated and set up for this work, its answers held by code",
+     "thing": true
     },
     {
      "name": "code",
-     "description": "rules fixed in advance as a written standard and run as a program anyone bound by them can read"
+     "description": "a thing, not a person: rules fixed in advance as a written standard and run as a program anyone bound by them can read",
+     "thing": true
     }
    ]
   },
@@ -65,11 +74,13 @@
     },
     {
      "name": "a model under negotiation",
-     "description": "a model, holding this part only where that was negotiated and set up for this work, its answers held by code"
+     "description": "a thing, not a person: a model, holding this part only where that was negotiated and set up for this work, its answers held by code",
+     "thing": true
     },
     {
      "name": "code",
-     "description": "rules fixed in advance as a written standard and run as a program anyone bound by them can read"
+     "description": "a thing, not a person: rules fixed in advance as a written standard and run as a program anyone bound by them can read",
+     "thing": true
     }
    ]
   },
@@ -88,11 +99,13 @@
     },
     {
      "name": "a model under negotiation",
-     "description": "a model, holding this part only where that was negotiated and set up for this work, its answers held by code"
+     "description": "a thing, not a person: a model, holding this part only where that was negotiated and set up for this work, its answers held by code",
+     "thing": true
     },
     {
      "name": "code",
-     "description": "rules fixed in advance as a written standard and run as a program anyone bound by them can read"
+     "description": "a thing, not a person: rules fixed in advance as a written standard and run as a program anyone bound by them can read",
+     "thing": true
     }
    ]
   }

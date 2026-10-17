@@ -37,6 +37,7 @@ SYNTAXES = [{
     "read_from": "boardgameBuilder",
     "slug": "board-game",
     "breaks_up": "a board game, or any game played at a table with things at hand",
+    "left_out": palette.LEFT_OUT,
     "element_types": [{
         "name": d["display"],
         "holds": "several" if d.get("multi") else "one",
@@ -55,6 +56,7 @@ SYNTAXES.append({
     "read_from": "Zariia",
     "slug": record["name"],
     "breaks_up": record["breaks_up"],
+    "left_out": record["left_out"],
     "element_types": record["element_types"],
     "instances": [{"name": "Zariia", "url": "https://zariia.org/simulator",
                    "what": "a record simulator: upload two tracks and download one record, the second track sealed inside it with a key",
@@ -68,6 +70,7 @@ SYNTAXES.append({
     "read_from": "Split-Domain Cognition",
     "slug": personhood["name"],
     "breaks_up": personhood["breaks_up"],
+    "left_out": personhood["left_out"],
     "element_types": personhood["element_types"],
     "instances": [
         {"name": "Split-Domain Cognition", "url": "https://splitdomaincognition.org",
@@ -80,7 +83,26 @@ SYNTAXES.append({
     "described_entities": [],
 })
 
+life = json.loads((HERE.parent / "splitdomaincognition" / "life-syntax.json").read_text())
+SYNTAXES.append({
+    "name": life["name"],
+    "read_from": "Split-Domain Cognition",
+    "slug": life["name"],
+    "breaks_up": life["breaks_up"],
+    "left_out": life["left_out"],
+    "element_types": life["element_types"],
+    "instances": [
+        {"name": "Split-Domain Cognition's animal-rights variant", "url": "https://splitdomaincognition.org/variants/animal-rights-and-veganism/v1/",
+         "what": "the rights position the syntax is read from: whether a use of an animal should exist, never how well the animal is treated inside it",
+         "links": []},
+    ],
+    "described_entities": [],
+})
+
 for s in SYNTAXES:
+    # An exclusion said only by absence from a list is not said: every syntax states what it leaves out.
+    if not s.get("left_out"):
+        sys.exit(f"'{s['name']}' does not state what it leaves out")
     if not PRIMARY_NAME.match(s["name"]):
         sys.exit(f"'{s['name']}' is not a primary name: name a syntax for the kind of thing it breaks up")
 
@@ -144,7 +166,7 @@ for s in SYNTAXES:
     types = "".join(
         f"""<section class="type"><h3>{e(t['name'])} <span class="holds">holds {t['holds']}</span></h3>
 <p class="aside">{e(t['description'])}</p>
-{f"<dl>{''.join(f'<dt>{e(x["name"])}</dt><dd>{e(x["description"])}</dd>' for x in t['elements'])}</dl>" if t['elements'] else ""}</section>"""
+{f"<dl>{''.join(f'<dt>{e(x["name"])}{' <span class="holds">thing</span>' if x.get("thing") else ''}</dt><dd>{e(x["description"])}</dd>' for x in t['elements'])}</dl>" if t['elements'] else ""}</section>"""
         for t in s["element_types"])
     inst = "".join(f'<li><a href="{e(i["url"])}">{e(i["name"])}</a>: {e(i["what"])}{"".join(f' (<a href="{e(u)}">{e(label)}</a>)' for label, u in i["links"])}</li>' for i in s["instances"])
     ents = "".join(f'<li><a href="{e(x["url"])}">{e(x["name"])}</a></li>' for x in s["described_entities"])
@@ -153,6 +175,7 @@ for s in SYNTAXES:
 <p class="lede">It breaks up {e(s['breaks_up'])}. It has {len(s['element_types'])} element types and {n_el} elements, and a {e(s['name'])} described in it is one choice of elements from each type.</p>
 <h2>Instances</h2><ul>{inst}</ul>
 <h2>Element types and elements</h2>{types}
+<h2>Left out</h2><p>{e(s["left_out"])}</p>
 <h2>Described in it</h2>{f'<ul class="entities">{ents}</ul>' if ents else '<p>Nothing is described in it yet.</p>'}
 <p class="aside">The syntax as data: <a href="/{s['slug']}.json">{s['slug']}.json</a>. It is read from {e(s['read_from'])} each time this site is built, so the two never differ.</p>"""
     out = HERE / "site" / s["slug"]
@@ -177,6 +200,8 @@ index = f"""<h1>Kinds of things, broken into parts</h1>
 <dt>element</dt><dd>one part.</dd>
 <dt>entity</dt><dd>one particular thing of that kind, described as its choice of elements.</dd>
 <dt>instance</dt><dd>a tool built on a syntax. Each syntax's page names its instances and the things described in it.</dd>
+<dt>left out</dt><dd>what a syntax does not describe, or who cannot hold a part of it, said in words. Every syntax states it, so an exclusion is never only an absence from a list.</dd>
+<dt>thing</dt><dd>a holder that is not a person, such as a model or code. It holds a part only as a tool a person set up, and has no personhood; its pages mark it as a thing.</dd>
 </dl>
 <h2>Syntaxes</h2>
 <ul class="syntaxes">{rows}</ul>

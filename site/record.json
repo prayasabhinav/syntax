@@ -3,6 +3,7 @@
  "read_from": "Zariia",
  "slug": "record",
  "breaks_up": "a record with two channels in one file: one that plays for anyone, and one sealed with a key",
+ "left_out": "What either channel says or sounds like: the syntax names what each channel is, never its content, and the sealed channel's content stays keyed. The class open throughout belongs to the syntax, but a record made from two tracks cannot have it, so the simulator does not offer it.",
  "element_types": [
   {
    "name": "open channel",

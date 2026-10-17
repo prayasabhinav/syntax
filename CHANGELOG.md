@@ -2,6 +2,13 @@
 
 What changed in SYNTAX, newest first. The version is in `VERSION` and shown on every page; `build.py` stops if `VERSION` and the newest entry here disagree. To add an entry: raise `VERSION` (the middle number for something people can use, the last for a fix), add a section at the top with the same number and the date, and build.
 
+## 0.5.0 — 17 October 2026
+
+- The fourth syntax, **life**: an animal's life, broken into place, food, action, body and signal, each either the animal's own or taken by use. An animal holds every part of it. It is read from Split-Domain Cognition's `life-syntax.json`, and its instance is the animal-rights variant.
+- Personhood is partial for an animal: in the personhood syntax an animal holds intent and no other part.
+- Every syntax's page has a *Left out* section: what the syntax does not describe, or who cannot hold a part of it, said in words and read from the syntax's own source, so an exclusion is never only an absence from a list. The build refuses a syntax that does not state it.
+- A holder that is not a person, a model or code, is marked as a *thing*: it holds a part only as a tool a person set up, and has no personhood. *Left out* and *thing* join the words on the home page.
+
 ## 0.4.0 — 17 October 2026
 
 - The third syntax, **personhood**: a piece of work in which language work and judgement work are both in play, broken into intent, language, judgement and residue, each held by one of the person, other people, a model under negotiation, or code. It is read from Split-Domain Cognition's `personhood-syntax.json`. Its instances are Split-Domain Cognition, and Koher as its child.

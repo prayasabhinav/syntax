@@ -3,6 +3,7 @@
  "read_from": "boardgameBuilder",
  "slug": "board-game",
  "breaks_up": "a board game, or any game played at a table with things at hand",
+ "left_out": "The artwork, the box, the price, the wording of the rules, and how many play: a board game described here is only its choice of elements. How a game should feel is kept beside the syntax, not in it: the feelings a designer puts on the shelf are not an element type.",
  "element_types": [
   {
    "name": "Core mechanic",
