@@ -153,14 +153,29 @@ def family_mark(s):
             f'<rect width="120" height="{40 * rows}" rx="6" fill="#0a1428"/>{cells}</svg>')
 
 
-def page(title, body, current, field=None):
+SITE = "https://syntax.prayasabhinav.net"
+DESCRIPTION = "SYNTAX breaks kinds of things into element types and elements, so that each thing of that kind can be described, compared and made from the same parts."
+
+
+def page(title, body, current, field=None, og="home", description=DESCRIPTION, path="/"):
     return f"""<!doctype html>
 <html lang="en-GB">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{e(title)}</title>
-<meta name="description" content="SYNTAX breaks kinds of things into element types and elements, so that each thing of that kind can be described, compared and made from the same parts.">
+<meta name="description" content="{e(description)}">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="SYNTAX">
+<meta property="og:title" content="{e(title)}">
+<meta property="og:description" content="{e(description)}">
+<meta property="og:url" content="{SITE}{path}">
+<meta property="og:image" content="{SITE}/og/{og}.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="{e(title)}: its mark beside its name">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="{SITE}{path}">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="preload" href="/fonts/mukta-400.woff2" as="font" type="font/woff2" crossorigin>
 <style>{STYLE}</style>
@@ -200,7 +215,8 @@ for s in SYNTAXES:
     mark = family_mark(s)
     (out / "mark.svg").write_text(mark + "\n")
     field = f'<a href="/{s["slug"]}/">{mark}<span class="word">{e(s["name"])}</span></a>'
-    (out / "index.html").write_text(page(f"The {s['name']} syntax · SYNTAX", body, "syntaxes", field))
+    (out / "index.html").write_text(page(f"The {s['name']} syntax · SYNTAX", body, "syntaxes", field, og=s["slug"],
+                                         description=f"The {s['name']} syntax breaks up {s['breaks_up']}.", path=f"/{s['slug']}/"))
     (HERE / "site" / f"{s['slug']}.json").write_text(json.dumps(s, indent=1, ensure_ascii=False) + "\n")
 
 rows = "".join(
@@ -228,7 +244,15 @@ listing = f"""<h1>Syntaxes</h1>
 <p class="lede">Each syntax breaks one kind of thing into element types and elements, and is named by the primary name of that kind of thing.</p>
 <ul class="syntaxes">{rows}</ul>"""
 (HERE / "site" / "syntaxes").mkdir(parents=True, exist_ok=True)
-(HERE / "site" / "syntaxes" / "index.html").write_text(page("Syntaxes · SYNTAX", listing, "syntaxes"))
+(HERE / "site" / "syntaxes" / "index.html").write_text(page("Syntaxes · SYNTAX", listing, "syntaxes", path="/syntaxes/"))
 (HERE / "site" / "favicon.svg").write_text(MARK)
 shutil.copytree(HERE / "fonts", HERE / "site" / "fonts", dirs_exist_ok=True)
+# The link-preview images are drawn by og.py and kept in og/; a syntax without one is refused, so a new syntax
+# cannot go out with another's picture. og.py imports this file, so the check is skipped while it draws.
+if __name__ == "__main__":
+    missing = [s["slug"] for s in SYNTAXES if not (HERE / "og" / f"{s['slug']}.png").exists()] + \
+              ([] if (HERE / "og" / "home.png").exists() else ["home"])
+    if missing:
+        sys.exit(f"no preview image for {', '.join(missing)}: run python3 og.py")
+    shutil.copytree(HERE / "og", HERE / "site" / "og", dirs_exist_ok=True)
 print(f"built SYNTAX {VERSION}: {len(SYNTAXES)} syntax(es)")
