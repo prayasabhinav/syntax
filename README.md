@@ -18,6 +18,7 @@ Live at https://syntax.prayasabhinav.net.
 |---|---|---|
 | board game | `../boardgame-builder/palette.py`, `block_meta.py` | boardgameBuilder |
 | record | `../zariia/website/record-syntax.json` | Zariia |
+| personhood | `../splitdomaincognition/personhood-syntax.json` | Split-Domain Cognition; Koher, its child |
 
 ## Building and deploying
 

@@ -1,0 +1,115 @@
+{
+ "name": "personhood",
+ "read_from": "Split-Domain Cognition",
+ "slug": "personhood",
+ "breaks_up": "a piece of work in which language work and judgement work are both in play, by who holds each part of it",
+ "element_types": [
+  {
+   "name": "intent",
+   "holds": "one",
+   "description": "What the work is for. It comes first and stays with the person doing the work; the sentence that states it is never a model's.",
+   "elements": [
+    {
+     "name": "the person",
+     "description": "the one doing the work"
+    },
+    {
+     "name": "other people",
+     "description": "people other than the one doing the work"
+    },
+    {
+     "name": "a model under negotiation",
+     "description": "a model, holding this part only where that was negotiated and set up for this work, its answers held by code"
+    },
+    {
+     "name": "code",
+     "description": "rules fixed in advance as a written standard and run as a program anyone bound by them can read"
+    }
+   ]
+  },
+  {
+   "name": "language",
+   "holds": "one",
+   "description": "The language work: reading, gathering, describing, writing. It is held by people unless it has been negotiated and set up otherwise.",
+   "elements": [
+    {
+     "name": "the person",
+     "description": "the one doing the work"
+    },
+    {
+     "name": "other people",
+     "description": "people other than the one doing the work"
+    },
+    {
+     "name": "a model under negotiation",
+     "description": "a model, holding this part only where that was negotiated and set up for this work, its answers held by code"
+    },
+    {
+     "name": "code",
+     "description": "rules fixed in advance as a written standard and run as a program anyone bound by them can read"
+    }
+   ]
+  },
+  {
+   "name": "judgement",
+   "holds": "one",
+   "description": "The judgement work, answerable to consistency, explicitness, reproducibility and revisability: a verdict against a standard written in advance.",
+   "elements": [
+    {
+     "name": "the person",
+     "description": "the one doing the work"
+    },
+    {
+     "name": "other people",
+     "description": "people other than the one doing the work"
+    },
+    {
+     "name": "a model under negotiation",
+     "description": "a model, holding this part only where that was negotiated and set up for this work, its answers held by code"
+    },
+    {
+     "name": "code",
+     "description": "rules fixed in advance as a written standard and run as a program anyone bound by them can read"
+    }
+   ]
+  },
+  {
+   "name": "residue",
+   "holds": "one",
+   "description": "What the description handed to the judgement does not capture: named and left visible as unrated, never folded into the verdict or denied.",
+   "elements": [
+    {
+     "name": "the person",
+     "description": "the one doing the work"
+    },
+    {
+     "name": "other people",
+     "description": "people other than the one doing the work"
+    },
+    {
+     "name": "a model under negotiation",
+     "description": "a model, holding this part only where that was negotiated and set up for this work, its answers held by code"
+    },
+    {
+     "name": "code",
+     "description": "rules fixed in advance as a written standard and run as a program anyone bound by them can read"
+    }
+   ]
+  }
+ ],
+ "instances": [
+  {
+   "name": "Split-Domain Cognition",
+   "url": "https://splitdomaincognition.org",
+   "what": "the principle that language work and judgement work are unlike kinds of thinking, kept apart in the service of the intent of the person doing the work",
+   "links": []
+  },
+  {
+   "name": "Koher",
+   "url": "https://koher.app",
+   "what": "Split-Domain Cognition's child: free, open-source tools built on the principle",
+   "links": []
+  }
+ ],
+ "described_entities": []
+}

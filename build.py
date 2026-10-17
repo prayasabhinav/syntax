@@ -1,7 +1,8 @@
 """Build SYNTAX's site and its syntax files. Run from this folder: python3 build.py
 
 Each syntax is read from the instance that holds it, never copied by hand: the board game syntax comes from
-boardgameBuilder's palette.py and block_meta.py, the record syntax from Zariia's website/record-syntax.json. It is written to site/<name>.json (the syntax as data)
+boardgameBuilder's palette.py and block_meta.py, the record syntax from Zariia's website/record-syntax.json, the personhood syntax from
+Split-Domain Cognition's personhood-syntax.json. It is written to site/<name>.json (the syntax as data)
 and site/<name>/index.html (the syntax as a page). The build stops if VERSION and the newest entry in
 CHANGELOG.md disagree, or if a syntax is not named by a primary name.
 """
@@ -58,6 +59,24 @@ SYNTAXES.append({
     "instances": [{"name": "Zariia", "url": "https://zariia.org/simulator",
                    "what": "a record simulator: upload two tracks and download one record, the second track sealed inside it with a key",
                    "links": [("zariia.org", "https://zariia.org")]}],
+    "described_entities": [],
+})
+
+personhood = json.loads((HERE.parent / "splitdomaincognition" / "personhood-syntax.json").read_text())
+SYNTAXES.append({
+    "name": personhood["name"],
+    "read_from": "Split-Domain Cognition",
+    "slug": personhood["name"],
+    "breaks_up": personhood["breaks_up"],
+    "element_types": personhood["element_types"],
+    "instances": [
+        {"name": "Split-Domain Cognition", "url": "https://splitdomaincognition.org",
+         "what": "the principle that language work and judgement work are unlike kinds of thinking, kept apart in the service of the intent of the person doing the work",
+         "links": []},
+        {"name": "Koher", "url": "https://koher.app",
+         "what": "Split-Domain Cognition's child: free, open-source tools built on the principle",
+         "links": []},
+    ],
     "described_entities": [],
 })
 

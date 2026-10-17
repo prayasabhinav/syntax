@@ -2,6 +2,10 @@
 
 What changed in SYNTAX, newest first. The version is in `VERSION` and shown on every page; `build.py` stops if `VERSION` and the newest entry here disagree. To add an entry: raise `VERSION` (the middle number for something people can use, the last for a fix), add a section at the top with the same number and the date, and build.
 
+## 0.4.0 — 17 October 2026
+
+- The third syntax, **personhood**: a piece of work in which language work and judgement work are both in play, broken into intent, language, judgement and residue, each held by one of the person, other people, a model under negotiation, or code. It is read from Split-Domain Cognition's `personhood-syntax.json`. Its instances are Split-Domain Cognition, and Koher as its child.
+
 ## 0.3.1 — 17 October 2026
 
 - The record syntax's instance links to Zariia's simulator, now live, as well as to zariia.org.
